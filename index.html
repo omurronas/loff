@@ -1,214 +1,371 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loff</title>
+<title>LOFF — The Vault</title>
 
 <style>
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,Helvetica,sans-serif;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 body{
-background:#08090d;
-color:#fff;
-min-height:100vh;
+  background:#07080c;
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  min-height:100vh;
 }
 
 header{
-height:72px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 7%;
-border-bottom:1px solid #20232c;
-position:sticky;
-top:0;
-background:rgba(8,9,13,.94);
-backdrop-filter:blur(12px);
-z-index:10;
+  height:72px;
+  border-bottom:1px solid #242733;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  position:sticky;
+  top:0;
+  background:rgba(7,8,12,.94);
+  backdrop-filter:blur(15px);
+  z-index:20;
 }
 
 .logo{
-font-size:30px;
-font-weight:800;
-letter-spacing:-1px;
+  font-size:30px;
+  font-weight:800;
+  letter-spacing:-1.5px;
 }
 
-nav{
-display:flex;
-gap:28px;
+.status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  color:#8e94a3;
 }
 
-nav a{
-color:#aaa;
-text-decoration:none;
-font-size:15px;
-}
-
-nav a:hover{
-color:#fff;
+.dot{
+  width:7px;
+  height:7px;
+  background:#62e6a5;
+  border-radius:50%;
+  box-shadow:0 0 10px #62e6a5;
 }
 
 .hero{
-max-width:1100px;
-margin:auto;
-padding:110px 25px 80px;
-text-align:center;
+  text-align:center;
+  padding:55px 22px 30px;
 }
 
 .badge{
-display:inline-block;
-padding:8px 15px;
-border:1px solid #343844;
-border-radius:30px;
-color:#aaa;
-font-size:14px;
-margin-bottom:25px;
+  display:inline-block;
+  border:1px solid #303542;
+  border-radius:50px;
+  padding:10px 18px;
+  color:#aeb4c3;
+  font-size:13px;
+  margin-bottom:25px;
 }
 
-h1{
-font-size:clamp(55px,10vw,110px);
-line-height:.95;
-letter-spacing:-6px;
-margin-bottom:28px;
+.hero h1{
+  font-size:48px;
+  line-height:.98;
+  letter-spacing:-3px;
+  margin-bottom:20px;
 }
 
-.gradient{
-background:linear-gradient(90deg,#fff,#8ea0ff);
--webkit-background-clip:text;
-color:transparent;
+.hero h1 span{
+  color:#9da9ff;
 }
 
 .hero p{
-max-width:650px;
-margin:auto;
-color:#9ca1ad;
-font-size:19px;
-line-height:1.6;
+  color:#8f95a5;
+  line-height:1.6;
+  max-width:520px;
+  margin:auto;
+  font-size:16px;
 }
 
-.buttons{
-display:flex;
-justify-content:center;
-gap:14px;
-margin-top:35px;
-flex-wrap:wrap;
+.vault{
+  width:calc(100% - 32px);
+  max-width:560px;
+  margin:35px auto;
+  background:#10131b;
+  border:1px solid #292e3b;
+  border-radius:28px;
+  padding:22px;
+  box-shadow:0 20px 70px rgba(0,0,0,.45);
 }
 
-.btn{
-padding:15px 25px;
-border-radius:12px;
-text-decoration:none;
-font-weight:700;
+.vault-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
 }
 
-.primary{
-background:#fff;
-color:#08090d;
+.live{
+  color:#ff6d61;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1px;
 }
 
-.secondary{
-border:1px solid #343844;
-color:#fff;
+.lot{
+  color:#777e8d;
+  font-size:12px;
 }
 
-section{
-max-width:1100px;
-margin:auto;
-padding:70px 25px;
+.safe{
+  height:300px;
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 50% 45%,#272d3b 0,#151923 42%,#0b0d12 75%);
+  border:1px solid #363d4d;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
 }
 
-.section-title{
-font-size:35px;
-margin-bottom:12px;
+.safe:before{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  border:2px solid #343b4b;
+  border-radius:50%;
 }
 
-.section-text{
-color:#888f9d;
-margin-bottom:35px;
+.safe:after{
+  content:"";
+  position:absolute;
+  width:145px;
+  height:145px;
+  border:1px solid #4a5263;
+  border-radius:50%;
 }
 
-.cards{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
+.lock{
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  border:2px solid #858da1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+  z-index:2;
+  background:#0c0f15;
+  box-shadow:0 0 35px rgba(157,169,255,.15);
+}
+
+.secret{
+  text-align:center;
+  margin-top:22px;
+}
+
+.secret small{
+  color:#777e8d;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:10px;
+}
+
+.secret h2{
+  margin-top:8px;
+  font-size:24px;
+}
+
+.secret p{
+  color:#777e8d;
+  margin-top:7px;
+  font-size:13px;
+}
+
+.timer{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:24px;
+}
+
+.timebox{
+  background:#090b10;
+  border:1px solid #292e39;
+  border-radius:14px;
+  padding:13px 5px;
+  text-align:center;
+}
+
+.timebox strong{
+  display:block;
+  font-size:23px;
+}
+
+.timebox span{
+  color:#666d7c;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.bid-section{
+  margin-top:22px;
+  border-top:1px solid #252a35;
+  padding-top:22px;
+}
+
+.bid-label{
+  color:#777e8d;
+  font-size:12px;
+}
+
+.price{
+  font-size:38px;
+  font-weight:800;
+  margin-top:5px;
+  letter-spacing:-1px;
+}
+
+.price span{
+  color:#777e8d;
+  font-size:13px;
+  font-weight:400;
+}
+
+.bid-info{
+  display:flex;
+  justify-content:space-between;
+  color:#707787;
+  font-size:12px;
+  margin:7px 0 17px;
+}
+
+button{
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:17px;
+  background:#fff;
+  color:#08090d;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+button:active{
+  transform:scale(.98);
+}
+
+.note{
+  text-align:center;
+  color:#555c6b;
+  font-size:10px;
+  margin-top:14px;
+  line-height:1.5;
+}
+
+.features{
+  max-width:900px;
+  margin:70px auto;
+  padding:0 22px;
+}
+
+.features h2{
+  font-size:32px;
+  margin-bottom:25px;
+  letter-spacing:-1px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 
 .card{
-background:#11131a;
-border:1px solid #242832;
-border-radius:20px;
-padding:30px;
-min-height:190px;
+  background:#10131a;
+  border:1px solid #252a36;
+  border-radius:18px;
+  padding:20px;
 }
 
-.icon{
-font-size:32px;
-margin-bottom:20px;
-}
-
-.card h3{
-font-size:20px;
-margin-bottom:12px;
+.card b{
+  display:block;
+  margin-bottom:8px;
 }
 
 .card p{
-color:#888f9d;
-line-height:1.5;
-}
-
-.cta{
-margin:70px 25px;
-padding:70px 25px;
-border:1px solid #292d38;
-border-radius:25px;
-text-align:center;
-background:linear-gradient(145deg,#11131a,#090a0e);
-}
-
-.cta h2{
-font-size:40px;
-margin-bottom:15px;
-}
-
-.cta p{
-color:#8d94a1;
-margin-bottom:30px;
+  color:#747b8a;
+  font-size:13px;
+  line-height:1.5;
 }
 
 footer{
-border-top:1px solid #20232c;
-padding:35px 7%;
-color:#707783;
-text-align:center;
-font-size:14px;
+  text-align:center;
+  color:#4e5563;
+  border-top:1px solid #1d212b;
+  padding:30px 20px;
+  font-size:12px;
 }
 
-@media(max-width:750px){
-header{
-padding:0 20px;
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:50;
 }
 
-nav{
-display:none;
+.modal-box{
+  width:100%;
+  max-width:400px;
+  background:#11141c;
+  border:1px solid #343a49;
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
 }
 
-.cards{
-grid-template-columns:1fr;
+.modal-box h2{
+  font-size:27px;
+  margin-bottom:12px;
 }
 
-h1{
-letter-spacing:-4px;
+.modal-box p{
+  color:#858b99;
+  line-height:1.5;
+  font-size:14px;
+  margin-bottom:22px;
 }
 
-.hero{
-padding-top:80px;
+.close{
+  background:#242934;
+  color:#fff;
+  margin-top:10px;
 }
+
+@media(max-width:600px){
+  .hero h1{
+    font-size:43px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .safe{
+    height:260px;
+  }
 }
 </style>
 </head>
@@ -216,140 +373,191 @@ padding-top:80px;
 <body>
 
 <header>
-<div class="logo">loff</div>
-
-<nav>
-<a href="#nedir">Nedir?</a>
-<a href="#ozellikler">Özellikler</a>
-<a href="#basla">Başla</a>
-</nav>
+  <div class="logo">loff</div>
+  <div class="status">
+    <span class="dot"></span>
+    LIVE VAULT
+  </div>
 </header>
 
-<main>
+<section class="hero">
+  <div class="badge">YENİ NESİL AÇIK ARTIRMA DENEYİMİ</div>
 
-<div class="hero">
+  <h1>
+    Kasanın içinde<br>
+    <span>ne var?</span>
+  </h1>
 
-<div class="badge">Yeni nesil dijital platform</div>
+  <p>
+    LOFF, merak, rekabet ve keşfi tek bir deneyimde
+    bir araya getiren yeni nesil dijital vault platformudur.
+  </p>
+</section>
 
-<h1>
-Dünyayı<br>
-<span class="gradient">yeniden keşfet.</span>
-</h1>
+<section class="vault">
 
-<p>
-Loff, insanların fikirlerini, deneyimlerini ve
-keşiflerini tek bir yerde buluşturmak için
-tasarlanan yeni nesil bir platformdur.
-</p>
+  <div class="vault-top">
+    <div class="live">● CANLI</div>
+    <div class="lot">VAULT #001</div>
+  </div>
 
-<div class="buttons">
-<a class="btn primary" href="#basla">Loff'u keşfet</a>
-<a class="btn secondary" href="#nedir">Daha fazla bilgi</a>
-</div>
+  <div class="safe">
+    <div class="lock">🔒</div>
+  </div>
 
-</div>
+  <div class="secret">
+    <small>Kasada</small>
+    <h2>GİZLİ BİR DEĞER</h2>
+    <p>İçerik süre bitene kadar açıklanmaz.</p>
+  </div>
 
-<section id="nedir">
+  <div class="timer">
+    <div class="timebox">
+      <strong id="hours">00</strong>
+      <span>Saat</span>
+    </div>
 
-<h2 class="section-title">Loff nedir?</h2>
+    <div class="timebox">
+      <strong id="minutes">14</strong>
+      <span>Dakika</span>
+    </div>
 
-<p class="section-text">
-Basit. Modern. İnsan odaklı.
-</p>
+    <div class="timebox">
+      <strong id="seconds">59</strong>
+      <span>Saniye</span>
+    </div>
+  </div>
 
-<div class="cards">
+  <div class="bid-section">
+    <div class="bid-label">MEVCUT TEKLİF</div>
 
-<div class="card">
-<div class="icon">✦</div>
-<h3>Keşfet</h3>
-<p>
-Yeni fikirleri, insanları ve dünyadaki
-ilginç şeyleri keşfet.
-</p>
-</div>
+    <div class="price">
+      $<span id="price">20</span>
+    </div>
 
-<div class="card">
-<div class="icon">◉</div>
-<h3>Paylaş</h3>
-<p>
-Kendi düşüncelerini ve deneyimlerini
-insanlarla paylaş.
-</p>
-</div>
+    <div class="bid-info">
+      <span id="bidders">12 teklif</span>
+      <span>Minimum artış $1</span>
+    </div>
 
-<div class="card">
-<div class="icon">∞</div>
-<h3>Bağlan</h3>
-<p>
-Benzer düşüncelere sahip insanlarla
-yeni bağlantılar kur.
-</p>
-</div>
+    <button onclick="placeBid()">
+      TEKLİF VER — $<span id="buttonPrice">21</span>
+    </button>
 
-</div>
+    <div class="note">
+      Bu sürüm yalnızca demo/prototip amaçlıdır.
+      Gerçek para veya gerçek satın alma işlemi içermez.
+    </div>
+  </div>
 
 </section>
 
-<section id="ozellikler">
+<section class="features">
 
-<h2 class="section-title">Farklı bir deneyim.</h2>
+  <h2>LOFF nasıl çalışır?</h2>
 
-<p class="section-text">
-Loff'u klasik platformlardan ayıran şey sadeliği.
-</p>
+  <div class="grid">
 
-<div class="cards">
+    <div class="card">
+      <b>🔐 Kilitli Kasa</b>
+      <p>
+        Kasadaki değer süre sona erene kadar gizli kalır.
+      </p>
+    </div>
 
-<div class="card">
-<div class="icon">01</div>
-<h3>Sade</h3>
-<p>
-Gereksiz karmaşa yok.
-Sadece önemli olan şeyler.
-</p>
-</div>
+    <div class="card">
+      <b>⚡ Rekabet</b>
+      <p>
+        Kullanıcılar teklif vererek kasanın sahibi olmaya çalışır.
+      </p>
+    </div>
 
-<div class="card">
-<div class="icon">02</div>
-<h3>Hızlı</h3>
-<p>
-Mobil cihazlarda hızlı ve akıcı
-bir deneyim.
-</p>
-</div>
+    <div class="card">
+      <b>💎 Sürpriz</b>
+      <p>
+        Kasadan ne çıkacağını öğrenmek deneyimin en önemli parçasıdır.
+      </p>
+    </div>
 
-<div class="card">
-<div class="icon">03</div>
-<h3>Global</h3>
-<p>
-Dünyanın her yerinden insanlarla
-tanışmaya hazır.
-</p>
-</div>
-
-</div>
+  </div>
 
 </section>
-
-<div class="cta" id="basla">
-
-<h2>Loff'a hoş geldin.</h2>
-
-<p>
-Bu sadece başlangıç.
-</p>
-
-<a class="btn primary" href="#">
-Başla
-</a>
-
-</div>
-
-</main>
 
 <footer>
-© 2026 Loff — Tüm hakları saklıdır.
+  LOFF © 2026 — The Vault Experience
 </footer>
+
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <h2>🔥 Teklif alındı</h2>
+
+    <p>
+      Demo teklifiniz başarıyla işlendi.
+      Mevcut teklif şimdi $<span id="modalPrice">21</span>.
+    </p>
+
+    <button class="close" onclick="closeModal()">
+      TAMAM
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+let price = 20;
+let bidders = 12;
+
+function placeBid(){
+
+  price += 1;
+  bidders += 1;
+
+  document.getElementById("price").innerText = price;
+  document.getElementById("buttonPrice").innerText = price + 1;
+  document.getElementById("bidders").innerText = bidders + " teklif";
+  document.getElementById("modalPrice").innerText = price;
+
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display = "none";
+}
+
+let totalSeconds = 899;
+
+function updateTimer(){
+
+  if(totalSeconds <= 0){
+    document.getElementById("hours").innerText = "00";
+    document.getElementById("minutes").innerText = "00";
+    document.getElementById("seconds").innerText = "00";
+    return;
+  }
+
+  totalSeconds--;
+
+  let hours = Math.floor(totalSeconds / 3600);
+  let minutes = Math.floor((totalSeconds % 3600) / 60);
+  let seconds = totalSeconds % 60;
+
+  document.getElementById("hours").innerText =
+    String(hours).padStart(2,"0");
+
+  document.getElementById("minutes").innerText =
+    String(minutes).padStart(2,"0");
+
+  document.getElementById("seconds").innerText =
+    String(seconds).padStart(2,"0");
+}
+
+setInterval(updateTimer,1000);
+
+</script>
 
 </body>
 </html>
