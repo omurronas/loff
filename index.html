@@ -3,679 +3,961 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>LOFF — Live Vault</title>
 
 <style>
+
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  background:#07080c;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
+    background:#07090e;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
 }
 
-header{
-  height:76px;
-  border-bottom:1px solid #252936;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
-  position:sticky;
-  top:0;
-  background:rgba(7,8,12,.94);
-  backdrop-filter:blur(12px);
-  z-index:10;
+button{
+    font-family:inherit;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    height:82px;
+    background:rgba(7,9,14,.94);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid #252b39;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
 }
 
 .logo{
-  font-size:34px;
-  font-weight:800;
-  letter-spacing:-2px;
+    font-size:48px;
+    font-weight:900;
+    letter-spacing:-4px;
 }
 
 .live{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#aeb4c5;
-  font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#9299aa;
+    font-size:14px;
+    letter-spacing:1px;
 }
 
 .live-dot{
-  width:10px;
-  height:10px;
-  background:#57e6a1;
-  border-radius:50%;
-  box-shadow:0 0 15px #57e6a1;
-}
-
-.container{
-  max-width:850px;
-  margin:auto;
-  padding:70px 20px 100px;
-}
-
-.badge{
-  display:inline-block;
-  border:1px solid #303544;
-  border-radius:40px;
-  padding:12px 22px;
-  color:#aeb4c5;
-  font-size:15px;
-  margin-bottom:32px;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#55e6a5;
+    box-shadow:0 0 18px #55e6a5;
 }
 
 .hero{
-  text-align:center;
+    max-width:850px;
+    margin:auto;
+    text-align:center;
+    padding:110px 22px 65px;
+}
+
+.badge{
+    display:inline-block;
+    border:1px solid #343b4b;
+    border-radius:40px;
+    padding:15px 28px;
+    color:#aeb5c6;
+    font-size:15px;
+    letter-spacing:1px;
+    margin-bottom:50px;
 }
 
 .hero h1{
-  font-size:clamp(42px,8vw,76px);
-  line-height:.98;
-  letter-spacing:-4px;
-  margin-bottom:25px;
+    font-size:72px;
+    line-height:.98;
+    letter-spacing:-5px;
+    margin-bottom:35px;
 }
 
 .hero h1 span{
-  color:#a7adff;
+    color:#9995ff;
 }
 
 .hero p{
-  color:#9ca3b5;
-  font-size:20px;
-  line-height:1.6;
-  max-width:650px;
-  margin:auto;
+    color:#949bad;
+    font-size:20px;
+    line-height:1.7;
+    max-width:720px;
+    margin:auto;
 }
 
 .vault{
-  margin-top:65px;
-  background:#11141c;
-  border:1px solid #303544;
-  border-radius:28px;
-  padding:28px;
-  box-shadow:0 20px 80px rgba(0,0,0,.35);
+    width:calc(100% - 34px);
+    max-width:780px;
+    margin:0 auto 80px;
+    background:#10131b;
+    border:1px solid #293143;
+    border-radius:34px;
+    padding:28px;
+    box-shadow:0 25px 90px rgba(0,0,0,.35);
 }
 
 .vault-top{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:28px;
 }
 
 .live-label{
-  color:#ff6868;
-  font-weight:800;
-  letter-spacing:2px;
+    color:#ff7169;
+    font-weight:bold;
+    letter-spacing:2px;
 }
 
-.vault-no{
-  color:#70778a;
+.vault-number{
+    color:#747c90;
+    font-size:15px;
 }
 
 .safe{
-  height:310px;
-  border:1px solid #343b4e;
-  border-radius:24px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:radial-gradient(circle,#1c2230 0%,#0b0e14 65%);
-  position:relative;
-  overflow:hidden;
-}
-
-.safe:before,
-.safe:after{
-  content:"";
-  position:absolute;
-  border:2px solid #353d51;
-  border-radius:50%;
+    height:470px;
+    border:2px solid #343c50;
+    border-radius:30px;
+    background:
+        radial-gradient(circle,#202738 0,#121722 35%,#080b11 72%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
 }
 
 .safe:before{
-  width:250px;
-  height:250px;
+    content:"";
+    width:380px;
+    height:380px;
+    border:4px solid #343c50;
+    border-radius:50%;
+    position:absolute;
 }
 
 .safe:after{
-  width:160px;
-  height:160px;
+    content:"";
+    width:250px;
+    height:250px;
+    border:2px solid #515b72;
+    border-radius:50%;
+    position:absolute;
 }
 
 .lock{
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  background:#080b10;
-  border:3px solid #8992aa;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:42px;
-  z-index:2;
+    position:relative;
+    z-index:5;
+    width:100px;
+    height:85px;
+    border-radius:10px;
+    background:#d8c978;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
+    box-shadow:0 0 45px rgba(216,201,120,.12);
 }
 
-.secret{
-  text-align:center;
-  margin:55px 0 35px;
+.lock::before{
+    content:"";
+    position:absolute;
+    width:48px;
+    height:55px;
+    border:7px solid #bfc3c5;
+    border-bottom:0;
+    border-radius:30px 30px 0 0;
+    top:-43px;
 }
 
-.secret small{
-  color:#727a8c;
-  letter-spacing:5px;
+.vault-info{
+    text-align:center;
+    padding-top:60px;
 }
 
-.secret h2{
-  font-size:40px;
-  margin:15px 0 10px;
+.small-title{
+    color:#858da0;
+    letter-spacing:5px;
+    font-size:14px;
+    margin-bottom:15px;
 }
 
-.secret p{
-  color:#858c9e;
-  font-size:17px;
+.vault-info h2{
+    font-size:45px;
+    letter-spacing:-2px;
+    margin-bottom:12px;
+}
+
+.subtitle{
+    color:#737b8e;
+    font-size:18px;
 }
 
 .timer{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin:30px 0 40px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:35px;
 }
 
 .time-box{
-  background:#080b10;
-  border:1px solid #303747;
-  border-radius:18px;
-  padding:20px 10px;
-  text-align:center;
+    background:#080b11;
+    border:1px solid #293143;
+    border-radius:20px;
+    padding:25px 10px;
 }
 
-.time{
-  font-size:38px;
-  font-weight:800;
+.time-number{
+    font-size:38px;
+    font-weight:bold;
 }
 
-.unit{
-  margin-top:8px;
-  color:#72798b;
-  font-size:11px;
-  letter-spacing:3px;
+.time-label{
+    color:#747c90;
+    margin-top:8px;
+    font-size:12px;
+    letter-spacing:2px;
 }
 
-.auction{
-  border-top:1px solid #292e3b;
-  padding-top:30px;
+.divider{
+    height:1px;
+    background:#272e3d;
+    margin:45px 0;
 }
 
-.auction-title{
-  color:#7d8598;
-  font-size:14px;
-  letter-spacing:1px;
-}
-
-.current{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  margin:15px 0 22px;
+.bid-header{
+    color:#858da0;
+    font-size:15px;
+    letter-spacing:1px;
+    margin-bottom:10px;
 }
 
 .price{
-  font-size:58px;
-  font-weight:800;
+    font-size:68px;
+    font-weight:900;
+    letter-spacing:-4px;
 }
 
 .price small{
-  font-size:20px;
-  color:#9ca3b5;
+    font-size:25px;
+    color:#737b8e;
+    letter-spacing:0;
 }
 
-.bid-info{
-  color:#7e8698;
-  text-align:right;
-}
-
-.bid-area{
-  display:flex;
-  gap:10px;
-}
-
-.bid-input{
-  flex:1;
-  min-width:0;
-  background:#080b10;
-  color:#fff;
-  border:1px solid #343b4c;
-  border-radius:16px;
-  padding:18px;
-  font-size:18px;
-  outline:none;
-}
-
-.bid-input:focus{
-  border-color:#a7adff;
+.bid-meta{
+    display:flex;
+    justify-content:space-between;
+    color:#7c8495;
+    margin-top:8px;
+    font-size:15px;
 }
 
 .bid-button{
-  background:#fff;
-  color:#07080c;
-  border:0;
-  border-radius:16px;
-  padding:0 28px;
-  font-size:17px;
-  font-weight:800;
-  cursor:pointer;
+    width:100%;
+    margin-top:30px;
+    padding:22px;
+    border:0;
+    border-radius:25px;
+    background:#fff;
+    color:#07090e;
+    font-size:22px;
+    font-weight:900;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.bid-button:hover{
+    transform:translateY(-2px);
+    background:#9995ff;
 }
 
 .bid-button:active{
-  transform:scale(.98);
+    transform:scale(.98);
 }
 
-.message{
-  min-height:24px;
-  margin-top:12px;
-  color:#57e6a1;
-  font-size:14px;
+.bid-history{
+    margin-top:35px;
+    background:#080b11;
+    border:1px solid #293143;
+    border-radius:20px;
+    padding:20px;
 }
 
-.history{
-  margin-top:40px;
+.history-title{
+    color:#81899b;
+    font-size:13px;
+    letter-spacing:2px;
+    margin-bottom:15px;
 }
 
-.history h3{
-  font-size:20px;
-  margin-bottom:15px;
+.history-row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #1d2330;
+    color:#aeb5c6;
 }
 
-.bid-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 0;
-  border-bottom:1px solid #242936;
+.history-row:last-child{
+    border-bottom:0;
 }
 
-.bid-user{
-  color:#9da4b5;
+.history-price{
+    color:#fff;
+    font-weight:bold;
 }
 
-.bid-user span{
-  display:block;
-  color:#646c7d;
-  font-size:12px;
-  margin-top:4px;
+.reveal{
+    display:none;
+    text-align:center;
+    margin-top:35px;
+    padding:35px 20px;
+    border:1px solid #55e6a5;
+    border-radius:25px;
+    background:rgba(85,230,165,.05);
 }
 
-.bid-value{
-  font-weight:800;
+.reveal.show{
+    display:block;
+    animation:reveal .7s ease;
 }
 
-.notice{
-  margin-top:30px;
-  padding:18px;
-  border:1px solid #272d3a;
-  border-radius:15px;
-  color:#646c7d;
-  font-size:12px;
-  line-height:1.5;
-  text-align:center;
+@keyframes reveal{
+    from{
+        opacity:0;
+        transform:scale(.96);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.reveal-icon{
+    font-size:70px;
+    margin-bottom:15px;
+}
+
+.reveal h3{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.reveal p{
+    color:#8e96a8;
+    line-height:1.6;
+}
+
+.disclaimer{
+    text-align:center;
+    color:#555d6e;
+    font-size:12px;
+    line-height:1.6;
+    margin:35px auto 10px;
+    max-width:600px;
+}
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:#fff;
+    color:#07090e;
+    padding:15px 25px;
+    border-radius:50px;
+    font-weight:bold;
+    z-index:100;
+    opacity:0;
+    transition:.3s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(10px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:90;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:430px;
+    background:#11151e;
+    border:1px solid #343c50;
+    border-radius:28px;
+    padding:30px;
+    text-align:center;
+}
+
+.modal-box h3{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.modal-box p{
+    color:#858da0;
+    line-height:1.5;
+    margin-bottom:25px;
+}
+
+.next-bid{
+    font-size:45px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.confirm{
+    width:100%;
+    border:0;
+    border-radius:18px;
+    padding:17px;
+    background:#9995ff;
+    color:#07090e;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.cancel{
+    width:100%;
+    border:1px solid #343c50;
+    background:transparent;
+    color:#fff;
+    border-radius:18px;
+    padding:15px;
+    margin-top:10px;
+    cursor:pointer;
 }
 
 @media(max-width:600px){
 
-  header{
-    padding:0 20px;
-  }
+    .header{
+        height:72px;
+        padding:0 24px;
+    }
 
-  .container{
-    padding-top:45px;
-  }
+    .logo{
+        font-size:39px;
+    }
 
-  .hero h1{
-    letter-spacing:-2.5px;
-  }
+    .hero{
+        padding:75px 18px 45px;
+    }
 
-  .hero p{
-    font-size:17px;
-  }
+    .badge{
+        font-size:12px;
+        padding:13px 18px;
+        margin-bottom:35px;
+    }
 
-  .vault{
-    padding:20px;
-    border-radius:22px;
-  }
+    .hero h1{
+        font-size:50px;
+        letter-spacing:-3px;
+    }
 
-  .safe{
-    height:260px;
-  }
+    .hero p{
+        font-size:17px;
+    }
 
-  .secret h2{
-    font-size:32px;
-  }
+    .vault{
+        padding:18px;
+        border-radius:25px;
+    }
 
-  .price{
-    font-size:48px;
-  }
+    .safe{
+        height:330px;
+    }
 
-  .bid-area{
-    flex-direction:column;
-  }
+    .safe:before{
+        width:270px;
+        height:270px;
+    }
 
-  .bid-button{
-    height:55px;
-  }
+    .safe:after{
+        width:175px;
+        height:175px;
+    }
+
+    .lock{
+        width:75px;
+        height:65px;
+        font-size:35px;
+    }
+
+    .vault-info{
+        padding-top:40px;
+    }
+
+    .vault-info h2{
+        font-size:34px;
+    }
+
+    .timer{
+        gap:8px;
+    }
+
+    .time-box{
+        padding:18px 5px;
+    }
+
+    .time-number{
+        font-size:28px;
+    }
+
+    .price{
+        font-size:56px;
+    }
+
+    .bid-meta{
+        font-size:13px;
+    }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">loff</div>
+<header class="header">
 
-  <div class="live">
-    <div class="live-dot"></div>
-    LIVE VAULT
-  </div>
+    <div class="logo">loff</div>
+
+    <div class="live">
+        <div class="live-dot"></div>
+        LIVE VAULT
+    </div>
+
 </header>
 
-<main class="container">
 
-  <section class="hero">
+<main>
+
+<section class="hero">
 
     <div class="badge">
-      YENİ NESİL AÇIK ARTIRMA DENEYİMİ
+        YENİ NESİL AÇIK ARTIRMA DENEYİMİ
     </div>
 
     <h1>
-      Kasanın içinde<br>
-      <span>ne var?</span>
+        Kasanın içinde<br>
+        <span>ne var?</span>
     </h1>
 
     <p>
-      LOFF; merak, rekabet ve keşfi tek bir deneyimde
-      bir araya getiren yeni nesil dijital vault platformudur.
+        LOFF; merak, rekabet ve keşfi tek bir deneyimde
+        bir araya getiren yeni nesil dijital vault platformudur.
     </p>
 
-  </section>
+</section>
 
-  <section class="vault">
+
+<section class="vault">
 
     <div class="vault-top">
-      <div class="live-label">● CANLI</div>
-      <div class="vault-no">VAULT #001</div>
+
+        <div class="live-label">
+            ● CANLI
+        </div>
+
+        <div class="vault-number">
+            VAULT #001
+        </div>
+
     </div>
+
 
     <div class="safe">
-      <div class="lock" id="lock">🔒</div>
-    </div>
 
-    <div class="secret">
-      <small>KASADA</small>
-      <h2 id="secretTitle">GİZLİ BİR DEĞER</h2>
-      <p id="secretText">
-        İçerik süre bitene kadar açıklanmaz.
-      </p>
-    </div>
-
-    <div class="timer">
-
-      <div class="time-box">
-        <div class="time" id="hours">00</div>
-        <div class="unit">SAAT</div>
-      </div>
-
-      <div class="time-box">
-        <div class="time" id="minutes">15</div>
-        <div class="unit">DAKİKA</div>
-      </div>
-
-      <div class="time-box">
-        <div class="time" id="seconds">00</div>
-        <div class="unit">SANİYE</div>
-      </div>
+        <div class="lock" id="lock">
+            🔒
+        </div>
 
     </div>
 
-    <div class="auction">
 
-      <div class="auction-title">
-        MEVCUT TEKLİF
-      </div>
+    <div class="vault-info">
 
-      <div class="current">
+        <div class="small-title">
+            KASADA
+        </div>
+
+        <h2 id="vaultTitle">
+            GİZLİ BİR DEĞER
+        </h2>
+
+        <div class="subtitle" id="vaultSubtitle">
+            İçerik süre bitene kadar açıklanmaz.
+        </div>
+
+
+        <div class="timer">
+
+            <div class="time-box">
+                <div class="time-number" id="hours">00</div>
+                <div class="time-label">SAAT</div>
+            </div>
+
+            <div class="time-box">
+                <div class="time-number" id="minutes">15</div>
+                <div class="time-label">DAKİKA</div>
+            </div>
+
+            <div class="time-box">
+                <div class="time-number" id="seconds">00</div>
+                <div class="time-label">SANİYE</div>
+            </div>
+
+        </div>
+
+
+        <div class="divider"></div>
+
+
+        <div class="bid-header">
+            MEVCUT TEKLİF
+        </div>
 
         <div class="price">
-          $<span id="currentPrice">20</span>
-          <small>USD</small>
+            $<span id="currentPrice">20</span>
         </div>
 
-        <div class="bid-info">
-          <div>
-            <span id="bidCount">12</span> teklif
-          </div>
 
-          <div>
-            Minimum artış $1
-          </div>
+        <div class="bid-meta">
+
+            <span>
+                <span id="bidCount">12</span> teklif
+            </span>
+
+            <span>
+                Minimum artış $1
+            </span>
+
         </div>
 
-      </div>
 
-      <div class="bid-area">
-
-        <input
-          id="bidInput"
-          class="bid-input"
-          type="number"
-          min="21"
-          placeholder="Teklifiniz ($)"
-        >
-
-        <button
-          class="bid-button"
-          onclick="placeBid()">
-          TEKLİF VER
+        <button class="bid-button" onclick="openBid()">
+            TEKLİF VER — $<span id="nextPrice">21</span>
         </button>
 
-      </div>
 
-      <div id="message" class="message"></div>
+        <div class="bid-history">
+
+            <div class="history-title">
+                SON TEKLİFLER
+            </div>
+
+            <div id="history">
+
+                <div class="history-row">
+                    <span>Katılımcı #A82</span>
+                    <span class="history-price">$20</span>
+                </div>
+
+                <div class="history-row">
+                    <span>Katılımcı #F14</span>
+                    <span class="history-price">$19</span>
+                </div>
+
+                <div class="history-row">
+                    <span>Katılımcı #C31</span>
+                    <span class="history-price">$18</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="reveal" id="reveal">
+
+            <div class="reveal-icon">
+                🎁
+            </div>
+
+            <h3>
+                KASA AÇILDI
+            </h3>
+
+            <p>
+                Bu prototipte kasanın içindeki değer
+                süre tamamlandığında gösterilir.
+            </p>
+
+        </div>
+
+
+        <div class="disclaimer">
+            Bu sürüm yalnızca demo/prototip amaçlıdır.
+            Gerçek para, ödeme veya gerçek satın alma işlemi gerçekleştirmez.
+        </div>
 
     </div>
 
-    <div class="history">
-
-      <h3>Son Teklifler</h3>
-
-      <div id="historyList">
-
-        <div class="bid-row">
-          <div class="bid-user">
-            A***7
-            <span>az önce</span>
-          </div>
-          <div class="bid-value">$20</div>
-        </div>
-
-        <div class="bid-row">
-          <div class="bid-user">
-            M***2
-            <span>1 dk önce</span>
-          </div>
-          <div class="bid-value">$19</div>
-        </div>
-
-        <div class="bid-row">
-          <div class="bid-user">
-            L***9
-            <span>2 dk önce</span>
-          </div>
-          <div class="bid-value">$18</div>
-        </div>
-
-        <div class="bid-row">
-          <div class="bid-user">
-            K***4
-            <span>3 dk önce</span>
-          </div>
-          <div class="bid-value">$17</div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="notice">
-      Bu sürüm yalnızca demo/prototip amaçlıdır.
-      Gerçek para, ödeme veya gerçek açık artırma işlemi içermez.
-    </div>
-
-  </section>
+</section>
 
 </main>
 
+
+<div class="toast" id="toast">
+    Teklifiniz alındı!
+</div>
+
+
+<div class="modal" id="bidModal">
+
+    <div class="modal-box">
+
+        <h3>
+            Teklifi Onayla
+        </h3>
+
+        <p>
+            Bir sonraki teklif tutarınız:
+        </p>
+
+        <div class="next-bid">
+            $<span id="modalPrice">21</span>
+        </div>
+
+        <button class="confirm" onclick="confirmBid()">
+            TEKLİFİ ONAYLA
+        </button>
+
+        <button class="cancel" onclick="closeBid()">
+            VAZGEÇ
+        </button>
+
+    </div>
+
+</div>
+
+
 <script>
 
-/* =========================
-   AÇIK ARTIRMA
-========================= */
-
 let currentPrice = 20;
+
 let bidCount = 12;
 
-function placeBid(){
+let totalSeconds = 15 * 60;
 
-  const input = document.getElementById("bidInput");
-  const message = document.getElementById("message");
-
-  const value = Number(input.value);
-
-  if(!value){
-    message.style.color = "#ff6868";
-    message.innerText = "Lütfen bir teklif girin.";
-    return;
-  }
-
-  if(value < currentPrice + 1){
-    message.style.color = "#ff6868";
-    message.innerText =
-      "Teklif en az $" + (currentPrice + 1) + " olmalı.";
-    return;
-  }
-
-  currentPrice = value;
-  bidCount++;
-
-  document.getElementById("currentPrice").innerText = currentPrice;
-  document.getElementById("bidCount").innerText = bidCount;
-
-  addBid(value);
-
-  input.value = "";
-
-  message.style.color = "#57e6a1";
-  message.innerText =
-    "Teklifiniz başarıyla eklendi. (Demo)";
-
-}
-
-
-/* =========================
-   TEKLİF GEÇMİŞİ
-========================= */
-
-function addBid(value){
-
-  const list = document.getElementById("historyList");
-
-  const row = document.createElement("div");
-
-  row.className = "bid-row";
-
-  row.innerHTML = `
-    <div class="bid-user">
-      SEN
-      <span>şimdi</span>
-    </div>
-
-    <div class="bid-value">
-      $${value}
-    </div>
-  `;
-
-  list.prepend(row);
-
-}
+let auctionFinished = false;
 
 
 /* =========================
    GERİ SAYIM
 ========================= */
 
-let totalSeconds = 15 * 60;
-
 function updateTimer(){
 
-  if(totalSeconds <= 0){
+    if(auctionFinished){
+        return;
+    }
 
-    document.getElementById("hours").innerText = "00";
-    document.getElementById("minutes").innerText = "00";
-    document.getElementById("seconds").innerText = "00";
+    if(totalSeconds <= 0){
 
-    document.getElementById("secretTitle").innerText =
-      "KASA AÇILDI";
+        finishAuction();
 
-    document.getElementById("secretText").innerText =
-      "Demo süresi sona erdi.";
+        return;
+    }
 
-    document.getElementById("lock").innerText = "🔓";
+    totalSeconds--;
 
-    return;
-  }
+    let hours = Math.floor(totalSeconds / 3600);
 
-  totalSeconds--;
+    let minutes = Math.floor(
+        (totalSeconds % 3600) / 60
+    );
 
-  const hours =
-    Math.floor(totalSeconds / 3600);
+    let seconds = totalSeconds % 60;
 
-  const minutes =
-    Math.floor((totalSeconds % 3600) / 60);
+    document.getElementById("hours").innerText =
+        String(hours).padStart(2,"0");
 
-  const seconds =
-    totalSeconds % 60;
+    document.getElementById("minutes").innerText =
+        String(minutes).padStart(2,"0");
 
-  document.getElementById("hours").innerText =
-    String(hours).padStart(2,"0");
-
-  document.getElementById("minutes").innerText =
-    String(minutes).padStart(2,"0");
-
-  document.getElementById("seconds").innerText =
-    String(seconds).padStart(2,"0");
+    document.getElementById("seconds").innerText =
+        String(seconds).padStart(2,"0");
 
 }
+
 
 setInterval(updateTimer,1000);
 
 
 /* =========================
-   ENTER İLE TEKLİF
+   TEKLİF MODALI
 ========================= */
 
-document
-.getElementById("bidInput")
-.addEventListener("keydown",function(e){
+function openBid(){
 
-  if(e.key === "Enter"){
-    placeBid();
-  }
+    if(auctionFinished){
+        return;
+    }
+
+    let next = currentPrice + 1;
+
+    document.getElementById("modalPrice").innerText = next;
+
+    document.getElementById("bidModal").classList.add("show");
+
+}
+
+
+function closeBid(){
+
+    document.getElementById("bidModal").classList.remove("show");
+
+}
+
+
+/* =========================
+   TEKLİFİ ONAYLA
+========================= */
+
+function confirmBid(){
+
+    if(auctionFinished){
+        return;
+    }
+
+    currentPrice++;
+
+    bidCount++;
+
+    document.getElementById("currentPrice").innerText =
+        currentPrice;
+
+    document.getElementById("nextPrice").innerText =
+        currentPrice + 1;
+
+    document.getElementById("bidCount").innerText =
+        bidCount;
+
+
+    let history = document.getElementById("history");
+
+    let row = document.createElement("div");
+
+    row.className = "history-row";
+
+    row.innerHTML = `
+        <span>Sen</span>
+        <span class="history-price">$${currentPrice}</span>
+    `;
+
+    history.prepend(row);
+
+
+    closeBid();
+
+    showToast("Teklifiniz alındı ✓");
+
+}
+
+
+/* =========================
+   BİLDİRİM
+========================= */
+
+function showToast(message){
+
+    let toast =
+        document.getElementById("toast");
+
+    toast.innerText = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },2200);
+
+}
+
+
+/* =========================
+   KASA AÇILDI
+========================= */
+
+function finishAuction(){
+
+    auctionFinished = true;
+
+    document.getElementById("hours").innerText = "00";
+
+    document.getElementById("minutes").innerText = "00";
+
+    document.getElementById("seconds").innerText = "00";
+
+
+    document.getElementById("lock").innerText = "🔓";
+
+    document.getElementById("vaultTitle").innerText =
+        "KASA AÇILDI";
+
+    document.getElementById("vaultSubtitle").innerText =
+        "Gizli değer artık ortaya çıktı.";
+
+    document.getElementById("reveal").classList.add("show");
+
+
+    let button =
+        document.querySelector(".bid-button");
+
+    button.innerText =
+        "AÇIK ARTIRMA SONA ERDİ";
+
+    button.disabled = true;
+
+    button.style.opacity = ".5";
+
+}
+
+
+/* =========================
+   MODAL DIŞINA TIKLAMA
+========================= */
+
+document.getElementById("bidModal")
+.addEventListener("click", function(e){
+
+    if(e.target === this){
+
+        closeBid();
+
+    }
 
 });
 
