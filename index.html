@@ -4,2149 +4,310 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#06070b">
-<title>LOFF — Live Vault</title>
-
+<title>LOFF — Live Vault V2.2</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  background:#06070b;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
-}
-button,input{font:inherit}
-button{cursor:pointer}
-
-header{
-  height:78px;
-  padding:0 5%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid #202431;
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(6,7,11,.95);
-  backdrop-filter:blur(18px);
-}
-
-.logo{
-  font-size:44px;
-  font-weight:900;
-  letter-spacing:-5px;
-}
-
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.live{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:#9da5b8;
-  font-size:14px;
-}
-
-.live-dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:#55e6a5;
-  box-shadow:0 0 18px #55e6a5;
-  animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-  0%,100%{opacity:1}
-  50%{opacity:.45}
-}
-
-.header-btn{
-  background:#fff;
-  color:#08090d;
-  border:0;
-  border-radius:14px;
-  padding:12px 19px;
-  font-weight:800;
-}
-
-.user-btn{
-  display:none;
-  background:#171b24;
-  color:#fff;
-  border:1px solid #303747;
-  border-radius:14px;
-  padding:11px 15px;
-}
-
-.nav{
-  display:flex;
-  gap:7px;
-  padding:10px 5%;
-  border-bottom:1px solid #181c26;
-  overflow:auto;
-  position:sticky;
-  top:78px;
-  z-index:90;
-  background:rgba(6,7,11,.92);
-  backdrop-filter:blur(18px);
-}
-
-.nav button{
-  white-space:nowrap;
-  border:1px solid #292f3d;
-  background:#0d1016;
-  color:#8f97aa;
-  border-radius:30px;
-  padding:9px 15px;
-}
-
-.nav button.active{
-  background:#fff;
-  color:#08090d;
-  border-color:#fff;
-}
-
-.hero{
-  text-align:center;
-  padding:75px 20px 45px;
-}
-
-.badge{
-  display:inline-block;
-  border:1px solid #303746;
-  border-radius:40px;
-  padding:12px 23px;
-  color:#b9c0d1;
-  font-size:13px;
-  letter-spacing:1px;
-  margin-bottom:32px;
-}
-
-.hero h1{
-  font-size:clamp(48px,8vw,82px);
-  line-height:.95;
-  letter-spacing:-5px;
-  margin-bottom:23px;
-}
-
-.hero h1 span{
-  color:#9b9cff;
-}
-
-.hero p{
-  max-width:720px;
-  margin:auto;
-  color:#929aad;
-  font-size:18px;
-  line-height:1.6;
-}
-
-.container{
-  width:min(1050px,92%);
-  margin:auto;
-}
-
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  margin:28px 0 20px;
-}
-
-.section-head h2{
-  font-size:27px;
-}
-
-.section-head p{
-  color:#747d91;
-  font-size:13px;
-  margin-top:5px;
-}
-
-.search-box{
-  display:flex;
-  gap:9px;
-  margin-bottom:20px;
-}
-
-.search-box input{
-  flex:1;
-  min-width:0;
-  background:#10131a;
-  color:#fff;
-  border:1px solid #2d3443;
-  border-radius:15px;
-  padding:15px 17px;
-  outline:none;
-}
-
-.search-box input:focus{
-  border-color:#777dff;
-}
-
-.icon-btn{
-  width:47px;
-  border:1px solid #303746;
-  background:#10131a;
-  color:#fff;
-  border-radius:15px;
-}
-
-.filters{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  margin-bottom:22px;
-}
-
-.filters button{
-  white-space:nowrap;
-  background:#0d1016;
-  color:#9098aa;
-  border:1px solid #292f3c;
-  border-radius:25px;
-  padding:8px 14px;
-}
-
-.filters button.active{
-  color:#fff;
-  border-color:#777dff;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-  padding-bottom:75px;
-}
-
-.card{
-  background:#11141d;
-  border:1px solid #292f3d;
-  border-radius:25px;
-  padding:14px;
-  overflow:hidden;
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-3px);
-  border-color:#454d61;
-}
-
-.card-media{
-  height:270px;
-  border-radius:20px;
-  background:
-    radial-gradient(circle,#1c2232 0%,#10141d 50%,#080a0e 100%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-}
-
-.card-media:before{
-  content:"";
-  position:absolute;
-  width:205px;
-  height:205px;
-  border:2px solid #343c51;
-  border-radius:50%;
-}
-
-.card-media:after{
-  content:"";
-  position:absolute;
-  width:140px;
-  height:140px;
-  border:1px solid #4a5267;
-  border-radius:50%;
-}
-
-.product-icon{
-  font-size:78px;
-  z-index:2;
-  filter:drop-shadow(0 10px 30px rgba(0,0,0,.4));
-}
-
-.status{
-  position:absolute;
-  left:13px;
-  top:13px;
-  z-index:5;
-  background:#171b25;
-  border:1px solid #2f3645;
-  padding:7px 10px;
-  border-radius:20px;
-  color:#ff7771;
-  font-size:11px;
-  font-weight:800;
-}
-
-.heart{
-  position:absolute;
-  right:13px;
-  top:13px;
-  z-index:5;
-  width:39px;
-  height:39px;
-  border-radius:12px;
-  background:#11151e;
-  border:1px solid #303747;
-  color:#fff;
-  font-size:19px;
-}
-
-.heart.saved{
-  color:#ff7278;
-}
-
-.card-body{
-  padding:18px 3px 3px;
-}
-
-.card-title{
-  font-size:23px;
-  font-weight:800;
-  margin-bottom:7px;
-}
-
-.card-meta{
-  display:flex;
-  justify-content:space-between;
-  color:#858da1;
-  font-size:13px;
-  margin-bottom:15px;
-}
-
-.card-price{
-  font-size:32px;
-  font-weight:900;
-  margin-bottom:13px;
-}
-
-.card-button{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:14px;
-  background:#fff;
-  color:#08090d;
-  font-weight:800;
-}
-
-.empty{
-  grid-column:1/-1;
-  text-align:center;
-  padding:65px 20px;
-  color:#737c90;
-}
-
-.footer{
-  border-top:1px solid #202431;
-  text-align:center;
-  padding:42px 20px;
-  color:#626a7d;
-  font-size:12px;
-  line-height:1.8;
-}
-
-/* MODAL */
-
-.overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:500;
-  background:rgba(0,0,0,.76);
-  backdrop-filter:blur(10px);
-  padding:18px;
-  align-items:center;
-  justify-content:center;
-}
-
-.overlay.show{
-  display:flex;
-}
-
-.modal{
-  width:min(500px,100%);
-  max-height:91vh;
-  overflow:auto;
-  background:#11141d;
-  border:1px solid #303747;
-  border-radius:25px;
-  padding:23px;
-  box-shadow:0 30px 100px rgba(0,0,0,.6);
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:22px;
-}
-
-.modal-head h2{
-  font-size:24px;
-}
-
-.close{
-  background:#191d26;
-  color:#fff;
-  border:1px solid #303747;
-  width:39px;
-  height:39px;
-  border-radius:11px;
-}
-
-.field{
-  margin-bottom:14px;
-}
-
-.field label{
-  display:block;
-  color:#8c95a8;
-  font-size:12px;
-  margin-bottom:6px;
-}
-
-.field input{
-  width:100%;
-  padding:14px;
-  background:#080a0f;
-  color:#fff;
-  border:1px solid #303747;
-  border-radius:13px;
-  outline:none;
-}
-
-.primary{
-  width:100%;
-  padding:15px;
-  background:#fff;
-  color:#08090d;
-  border:0;
-  border-radius:14px;
-  font-weight:800;
-  margin-top:4px;
-}
-
-.secondary{
-  width:100%;
-  padding:13px;
-  background:#171b24;
-  color:#fff;
-  border:1px solid #303747;
-  border-radius:14px;
-  font-weight:700;
-  margin-top:9px;
-}
-
-.switch{
-  text-align:center;
-  color:#858da1;
-  font-size:13px;
-  margin-top:16px;
-}
-
-.detail-icon{
-  height:240px;
-  border-radius:19px;
-  background:radial-gradient(circle,#202638,#090b10);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:95px;
-  margin-bottom:18px;
-}
-
-.detail-price{
-  font-size:40px;
-  font-weight:900;
-  margin:11px 0;
-}
-
-.detail-row{
-  display:flex;
-  justify-content:space-between;
-  color:#858da1;
-  padding:12px 0;
-  border-bottom:1px solid #252b37;
-}
-
-.detail-row strong{
-  color:#fff;
-}
-
-.notice{
-  padding:15px;
-  border:1px solid #303747;
-  border-radius:14px;
-  color:#929aad;
-  line-height:1.5;
-  font-size:13px;
-  margin-top:14px;
-}
-
-.profile-top{
-  text-align:center;
-}
-
-.avatar{
-  width:76px;
-  height:76px;
-  border-radius:50%;
-  background:#202537;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:0 auto 13px;
-  font-size:33px;
-}
-
-.balance{
-  background:#080a0f;
-  border:1px solid #303747;
-  border-radius:17px;
-  padding:18px;
-  margin:18px 0;
-}
-
-.balance small{
-  color:#7e879a;
-}
-
-.balance strong{
-  display:block;
-  font-size:34px;
-  margin-top:4px;
-}
-
-.history-item{
-  padding:13px 0;
-  border-bottom:1px solid #252b37;
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.history-item small{
-  color:#7e879a;
-  display:block;
-  margin-top:4px;
-}
-
-.history-item strong{
-  white-space:nowrap;
-}
-
-.toast{
-  position:fixed;
-  bottom:22px;
-  left:50%;
-  transform:translate(-50%,130px);
-  z-index:1000;
-  background:#fff;
-  color:#08090d;
-  padding:13px 18px;
-  border-radius:14px;
-  font-weight:800;
-  transition:.3s;
-  box-shadow:0 15px 50px rgba(0,0,0,.5);
-  white-space:nowrap;
-}
-
-.toast.show{
-  transform:translate(-50%,0);
-}
-
-@media(max-width:700px){
-
-  header{
-    height:70px;
-    padding:0 18px;
-  }
-
-  .logo{
-    font-size:39px;
-  }
-
-  .live{
-    display:none;
-  }
-
-  .header-btn{
-    padding:10px 14px;
-  }
-
-  .nav{
-    top:70px;
-    padding:9px 18px;
-  }
-
-  .hero{
-    padding:58px 17px 38px;
-  }
-
-  .hero h1{
-    letter-spacing:-3px;
-  }
-
-  .hero p{
-    font-size:16px;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .card-media{
-    height:285px;
-  }
-
-  .container{
-    width:92%;
-  }
-}
+body{background:#06070b;color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer}
+header{height:72px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #202431;position:sticky;top:0;z-index:100;background:rgba(6,7,11,.94);backdrop-filter:blur(18px)}
+.logo{font-size:42px;font-weight:900;letter-spacing:-5px}.header-right{display:flex;align-items:center;gap:10px}
+.live{display:flex;align-items:center;gap:8px;color:#9da5b8;font-size:14px}.live-dot{width:9px;height:9px;border-radius:50%;background:#55e6a5;box-shadow:0 0 16px #55e6a5}
+.header-btn{background:#fff;color:#08090d;border:0;border-radius:13px;padding:11px 18px;font-weight:800}.user-pill{display:none;background:#171b24;border:1px solid #303747;color:#fff;border-radius:13px;padding:10px 14px;font-weight:700}
+.nav{display:flex;gap:8px;padding:10px 5%;border-bottom:1px solid #181c26;overflow:auto;position:sticky;top:72px;z-index:90;background:rgba(6,7,11,.92);backdrop-filter:blur(18px)}
+.nav button{white-space:nowrap;border:1px solid #292f3d;background:#0d1016;color:#8f97aa;border-radius:25px;padding:9px 16px}.nav button.active{background:#fff;color:#08090d;border-color:#fff}
+.hero{text-align:center;padding:65px 20px 40px}.badge{display:inline-block;border:1px solid #303746;border-radius:40px;padding:12px 22px;color:#b9c0d1;font-size:13px;letter-spacing:1px;margin-bottom:30px}
+.hero h1{font-size:clamp(48px,8vw,82px);line-height:.95;letter-spacing:-5px;margin-bottom:22px}.hero h1 span{color:#9b9cff}.hero p{max-width:720px;margin:auto;color:#929aad;font-size:18px;line-height:1.6}
+.container{width:min(1050px,92%);margin:auto}.section-head{display:flex;justify-content:space-between;align-items:end;margin:30px 0 20px}.section-head h2{font-size:28px}.section-head p{color:#747d91;font-size:14px}
+.search-box{display:flex;gap:9px;margin-bottom:20px}.search-box input{flex:1;min-width:0;background:#10131a;color:#fff;border:1px solid #2d3443;border-radius:15px;padding:15px 17px;outline:none}.search-box input:focus{border-color:#777dff}
+.icon-btn{width:48px;border:1px solid #303746;background:#10131a;color:#fff;border-radius:14px}
+.filters{display:flex;gap:8px;overflow:auto;margin-bottom:22px}.filters button{white-space:nowrap;background:#0d1016;color:#9098aa;border:1px solid #292f3c;border-radius:25px;padding:9px 15px}.filters button.active{color:#fff;border-color:#777dff}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding-bottom:70px}.card{background:#11141d;border:1px solid #292f3d;border-radius:25px;padding:15px;overflow:hidden;transition:.25s}.card:hover{transform:translateY(-3px);border-color:#454d61}
+.card-media{height:270px;border-radius:20px;background:radial-gradient(circle,#1c2232 0%,#10141d 50%,#080a0e 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.card-media:before{content:"";position:absolute;width:205px;height:205px;border:2px solid #343c51;border-radius:50%}.card-media:after{content:"";position:absolute;width:140px;height:140px;border:1px solid #4a5267;border-radius:50%}.product-icon{font-size:80px;z-index:2;filter:drop-shadow(0 10px 30px rgba(0,0,0,.4))}
+.status{position:absolute;left:13px;top:13px;z-index:5;background:#171b25;border:1px solid #2f3645;padding:7px 11px;border-radius:20px;color:#ff7771;font-size:11px;font-weight:800}.heart{position:absolute;right:13px;top:13px;z-index:5;width:39px;height:39px;border-radius:12px;background:#11151e;border:1px solid #303747;color:#fff;font-size:19px}.heart.saved{color:#ff7278}
+.card-body{padding:18px 4px 3px}.card-title{font-size:23px;font-weight:800;margin-bottom:8px}.card-meta{display:flex;justify-content:space-between;color:#858da1;font-size:13px;margin-bottom:16px}.card-price{font-size:32px;font-weight:900;margin-bottom:13px}.card-button{width:100%;padding:14px;border:0;border-radius:14px;background:#fff;color:#08090d;font-weight:800}
+.empty{grid-column:1/-1;text-align:center;padding:65px 20px;color:#737c90}
+
+/* modals */
+.overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.76);backdrop-filter:blur(10px);padding:18px;align-items:center;justify-content:center}.overlay.show{display:flex}
+.modal{width:min(520px,100%);max-height:91vh;overflow:auto;background:#11141d;border:1px solid #303747;border-radius:25px;padding:23px;box-shadow:0 30px 100px rgba(0,0,0,.6)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.modal-head h2{font-size:24px}.close{background:#191d26;color:#fff;border:1px solid #303747;width:39px;height:39px;border-radius:12px}
+.field{margin-bottom:14px}.field label{display:block;color:#8c95a8;font-size:13px;margin-bottom:6px}.field input{width:100%;padding:14px;background:#080a0f;color:#fff;border:1px solid #303747;border-radius:13px;outline:none}
+.primary{width:100%;padding:15px;background:#fff;color:#08090d;border:0;border-radius:14px;font-weight:800;margin-top:4px}.secondary{width:100%;padding:13px;background:#171b24;color:#fff;border:1px solid #303747;border-radius:14px;font-weight:700;margin-top:9px}.switch{text-align:center;color:#858da1;font-size:13px;margin-top:16px}.switch span{color:#a5a6ff;cursor:pointer}
+.detail-icon{height:245px;border-radius:19px;background:radial-gradient(circle,#202638,#090b10);display:flex;align-items:center;justify-content:center;font-size:95px;margin-bottom:18px}.detail-price{font-size:40px;font-weight:900;margin:11px 0}.detail-row{display:flex;justify-content:space-between;gap:15px;color:#858da1;padding:12px 0;border-bottom:1px solid #252b37}.detail-row strong{color:#fff}
+.bid-panel{margin-top:16px;padding:16px;border:1px solid #303747;border-radius:17px;background:#0b0e14}.bid-panel small{color:#7f889b}.bid-next{font-size:29px;font-weight:900;margin:5px 0 12px}
+.profile-top{text-align:center}.avatar{width:76px;height:76px;border-radius:50%;background:#202537;display:flex;align-items:center;justify-content:center;margin:0 auto 13px;font-size:33px}.balance{background:#080a0f;border:1px solid #303747;border-radius:17px;padding:18px;margin:18px 0}.balance small{color:#7e879a}.balance strong{display:block;font-size:33px;margin-top:4px}
+.history-item{padding:14px 0;border-bottom:1px solid #252b37}.history-item strong{display:block;margin-bottom:5px}.history-item span{color:#7f889b;font-size:13px}
+.reveal{text-align:center}.reveal-box{height:250px;border-radius:20px;background:radial-gradient(circle,#292e42,#090b10);display:flex;align-items:center;justify-content:center;font-size:105px;margin-bottom:20px;border:1px solid #454d61}.winner{color:#a5a6ff;font-size:18px;margin:10px 0}.success{padding:14px;border:1px solid #304c40;border-radius:14px;background:#0c1712;color:#9ce0bb;margin:15px 0;line-height:1.5}
+.toast{position:fixed;bottom:23px;left:50%;transform:translate(-50%,130px);z-index:1000;background:#fff;color:#08090d;padding:13px 19px;border-radius:14px;font-weight:800;transition:.3s;box-shadow:0 15px 50px rgba(0,0,0,.5);text-align:center;white-space:nowrap}.toast.show{transform:translate(-50%,0)}
+.footer{border-top:1px solid #202431;text-align:center;padding:42px 20px;color:#626a7d;font-size:13px;line-height:1.8}
+@media(max-width:700px){header{padding:0 18px}.logo{font-size:38px}.live{display:none}.header-btn{padding:10px 14px}.nav{top:72px;padding:9px 18px}.hero{padding:58px 18px 35px}.hero h1{letter-spacing:-3px}.hero p{font-size:17px}.grid{grid-template-columns:1fr}.card-media{height:295px}.container{width:92%}}
 </style>
 </head>
-
 <body>
 
 <header>
-
   <div class="logo">loff</div>
-
   <div class="header-right">
-
-    <div class="live">
-      <span class="live-dot"></span>
-      LIVE VAULT
-    </div>
-
-    <button
-      class="user-btn"
-      id="userBtn"
-      onclick="openProfile()">
-      👤
-    </button>
-
-    <button
-      class="header-btn"
-      id="loginBtn"
-      onclick="openLogin()">
-      Giriş Yap
-    </button>
-
+    <div class="live"><span class="live-dot"></span>LIVE VAULT</div>
+    <button class="user-pill" id="userPill" onclick="openProfile()">👤 <span id="userPillName"></span></button>
+    <button class="header-btn" id="loginBtn" onclick="openLogin()">Giriş Yap</button>
   </div>
-
 </header>
 
-
 <nav class="nav">
-
-  <button
-    class="active"
-    onclick="showHome(this)">
-    Ana Sayfa
-  </button>
-
-  <button onclick="scrollToVaults()">
-    Vault'lar
-  </button>
-
-  <button onclick="openFavorites()">
-    Favoriler
-  </button>
-
-  <button onclick="openProfile()">
-    Profil
-  </button>
-
-  <button onclick="openHow()">
-    Nasıl Çalışır?
-  </button>
-
+  <button class="active" onclick="showHome(this)">Ana Sayfa</button>
+  <button onclick="scrollToVaults()">Vault'lar</button>
+  <button onclick="openFavorites()">Favoriler</button>
+  <button onclick="openProfile()">Profil</button>
+  <button onclick="openHow()">Nasıl Çalışır?</button>
 </nav>
 
-
 <section class="hero">
-
-  <div class="badge">
-    YENİ NESİL AÇIK ARTIRMA DENEYİMİ
-  </div>
-
-  <h1>
-    Kasanın içinde<br>
-    <span>ne var?</span>
-  </h1>
-
-  <p>
-    LOFF; merak, rekabet ve keşfi tek bir deneyimde
-    bir araya getiren yeni nesil dijital vault platformudur.
-  </p>
-
+  <div class="badge">YENİ NESİL AÇIK ARTIRMA DENEYİMİ</div>
+  <h1>Kasanın içinde<br><span>ne var?</span></h1>
+  <p>LOFF; merak, rekabet ve keşfi tek bir deneyimde bir araya getiren yeni nesil dijital vault platformudur.</p>
 </section>
 
-
 <main class="container">
-
   <div class="section-head">
-
-    <div>
-
-      <h2>
-        Canlı Vault'lar
-      </h2>
-
-      <p>
-        Şu anda keşfedilebilen kasalar
-      </p>
-
-    </div>
-
+    <div><h2>Canlı Vault'lar</h2><p>Şu anda keşfedilebilen kasalar</p></div>
   </div>
-
 
   <div class="search-box">
-
-    <input
-      id="search"
-      type="search"
-      placeholder="Vault ara..."
-      oninput="renderVaults()">
-
-    <button
-      class="icon-btn"
-      onclick="renderVaults()">
-      ⌕
-    </button>
-
+    <input id="search" type="search" placeholder="Vault ara..." oninput="renderVaults()">
+    <button class="icon-btn" onclick="renderVaults()">⌕</button>
   </div>
-
 
   <div class="filters">
-
-    <button
-      class="active"
-      onclick="setFilter('all',this)">
-      Tümü
-    </button>
-
-    <button
-      onclick="setFilter('tech',this)">
-      Teknoloji
-    </button>
-
-    <button
-      onclick="setFilter('gaming',this)">
-      Gaming
-    </button>
-
-    <button
-      onclick="setFilter('fashion',this)">
-      Moda
-    </button>
-
-    <button
-      onclick="setFilter('mystery',this)">
-      Mystery
-    </button>
-
+    <button class="active" onclick="setFilter('all',this)">Tümü</button>
+    <button onclick="setFilter('tech',this)">Teknoloji</button>
+    <button onclick="setFilter('gaming',this)">Gaming</button>
+    <button onclick="setFilter('fashion',this)">Moda</button>
+    <button onclick="setFilter('mystery',this)">Mystery</button>
   </div>
 
-
-  <section
-    id="vaultGrid"
-    class="grid">
-  </section>
-
+  <section id="vaultGrid" class="grid"></section>
 </main>
 
-
-<footer class="footer">
-
-  <strong>
-    LOFF — LIVE VAULT
-  </strong>
-
-  <br>
-
-  Yeni nesil dijital açık artırma deneyimi
-
-  <br><br>
-
-  Demo/prototip sürümüdür.
-  Gerçek para veya ödeme işlemi içermez.
-
-</footer>
-
+<footer class="footer"><strong>LOFF — LIVE VAULT V2.2</strong><br>Yeni nesil dijital açık artırma deneyimi<br><br>Demo/prototip sürümüdür. Gerçek para veya ödeme işlemi içermez.</footer>
 
 <!-- LOGIN -->
-
-<div
-  class="overlay"
-  id="loginModal">
-
+<div class="overlay" id="loginModal">
   <div class="modal">
-
-    <div class="modal-head">
-
-      <h2 id="loginTitle">
-        LOFF'a Giriş Yap
-      </h2>
-
-      <button
-        class="close"
-        onclick="closeModals()">
-        ×
-      </button>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        E-posta
-      </label>
-
-      <input
-        id="email"
-        type="email"
-        placeholder="ornek@mail.com">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        Şifre
-      </label>
-
-      <input
-        id="password"
-        type="password"
-        placeholder="••••••••">
-
-    </div>
-
-
-    <button
-      class="primary"
-      onclick="submitAuth()"
-      id="authButton">
-      Giriş Yap
-    </button>
-
-
-    <button
-      class="secondary"
-      onclick="toggleRegister()"
-      id="registerButton">
-      Hesap Oluştur
-    </button>
-
-
-    <div class="switch">
-      Demo hesap sistemi — gerçek hesap oluşturulmaz.
-    </div>
-
+    <div class="modal-head"><h2 id="loginTitle">LOFF'a Giriş Yap</h2><button class="close" onclick="closeModals()">×</button></div>
+    <div class="field"><label>E-posta</label><input id="email" type="email" placeholder="ornek@mail.com"></div>
+    <div class="field"><label>Şifre</label><input id="password" type="password" placeholder="••••••••"></div>
+    <button class="primary" onclick="fakeLogin()">Giriş Yap</button>
+    <button class="secondary" onclick="showRegister()">Hesap Oluştur</button>
+    <div class="switch">Demo hesap sistemi — gerçek hesap oluşturulmaz.</div>
   </div>
-
 </div>
-
 
 <!-- DETAIL -->
-
-<div
-  class="overlay"
-  id="detailModal">
-
+<div class="overlay" id="detailModal">
   <div class="modal">
-
-    <div class="modal-head">
-
-      <h2 id="detailTitle">
-        Vault
-      </h2>
-
-      <button
-        class="close"
-        onclick="closeModals()">
-        ×
-      </button>
-
-    </div>
-
-
-    <div
-      class="detail-icon"
-      id="detailIcon">
-      🔒
-    </div>
-
-
-    <p
-      id="detailDesc"
-      style="color:#8d96aa;line-height:1.6">
-    </p>
-
-
-    <div class="detail-price">
-
-      $<span id="detailPrice">
-        0
-      </span>
-
-    </div>
-
-
-    <div class="detail-row">
-
-      <span>
-        Vault
-      </span>
-
-      <strong id="detailVault">
-        #000
-      </strong>
-
-    </div>
-
-
-    <div class="detail-row">
-
-      <span>
-        Kalan süre
-      </span>
-
-      <strong id="detailTime">
-        00:00
-      </strong>
-
-    </div>
-
-
-    <div class="detail-row">
-
-      <span>
-        Teklif
-      </span>
-
-      <strong id="detailBids">
-        0
-      </strong>
-
-    </div>
-
-
-    <button
-      class="primary"
-      onclick="makeBidFromDetail()">
-
-      TEKLİF VER —
-      $<span id="detailNext">0</span>
-
-    </button>
-
-
-    <div class="notice">
-
-      Teklif sistemi şu anda demo
-      modundadır. Gerçek ödeme yapılmaz.
-
-    </div>
-
+    <div class="modal-head"><h2 id="detailTitle">Vault</h2><button class="close" onclick="closeModals()">×</button></div>
+    <div class="detail-icon" id="detailIcon">🔒</div>
+    <p id="detailDesc" style="color:#8d96aa;line-height:1.6"></p>
+    <div class="detail-price">$<span id="detailPrice">0</span></div>
+    <div class="detail-row"><span>Vault</span><strong id="detailVault">#000</strong></div>
+    <div class="detail-row"><span>Kalan süre</span><strong id="detailTime">00:00</strong></div>
+    <div class="detail-row"><span>Teklif</span><strong id="detailBids">0</strong></div>
+    <div class="bid-panel"><small>SONRAKİ GEÇERLİ TEKLİF</small><div class="bid-next">$<span id="detailNext">1</span></div><button class="primary" onclick="makeBidFromDetail()">TEKLİF VER</button></div>
   </div>
-
 </div>
-
 
 <!-- PROFILE -->
-
-<div
-  class="overlay"
-  id="profileModal">
-
+<div class="overlay" id="profileModal">
   <div class="modal">
-
-    <div class="modal-head">
-
-      <h2>
-        Profilim
-      </h2>
-
-      <button
-        class="close"
-        onclick="closeModals()">
-        ×
-      </button>
-
-    </div>
-
-
-    <div class="profile-top">
-
-      <div class="avatar">
-        👤
-      </div>
-
-      <h3 id="profileName">
-        Misafir Kullanıcı
-      </h3>
-
-      <p
-        id="profileStatus"
-        style="color:#7e879a;margin-top:5px">
-        Demo hesap
-      </p>
-
-    </div>
-
-
-    <div class="balance">
-
-      <small>
-        DEMO BAKİYE
-      </small>
-
-      <strong>
-        $<span id="balance">
-          100
-        </span>
-      </strong>
-
-    </div>
-
-
-    <button
-      class="secondary"
-      onclick="showHistory()">
-      📜 Teklif Geçmişim
-    </button>
-
-
-    <button
-      class="secondary"
-      onclick="openFavorites()">
-      ❤️ Favorilerim
-    </button>
-
-
-    <button
-      class="secondary"
-      id="logoutBtn"
-      onclick="logout()">
-      Çıkış Yap
-    </button>
-
+    <div class="modal-head"><h2>Profilim</h2><button class="close" onclick="closeModals()">×</button></div>
+    <div class="profile-top"><div class="avatar">👤</div><h3 id="profileName">Misafir Kullanıcı</h3><p style="color:#7e879a;margin-top:5px" id="profileStatus">Demo hesap</p></div>
+    <div class="balance"><small>DEMO BAKİYE</small><strong>$<span id="balance">100</span></strong></div>
+    <button class="secondary" onclick="showHistory()">📜 Teklif Geçmişim</button>
+    <button class="secondary" onclick="openFavorites()">❤️ Favorilerim</button>
+    <button class="secondary" onclick="logout()">Çıkış Yap</button>
   </div>
-
 </div>
-
 
 <!-- FAVORITES -->
-
-<div
-  class="overlay"
-  id="favoritesModal">
-
+<div class="overlay" id="favoritesModal">
   <div class="modal">
-
-    <div class="modal-head">
-
-      <h2>
-        Favorilerim
-      </h2>
-
-      <button
-        class="close"
-        onclick="closeModals()">
-        ×
-      </button>
-
-    </div>
-
-
-    <div id="favoritesContent">
-    </div>
-
+    <div class="modal-head"><h2>Favorilerim</h2><button class="close" onclick="closeModals()">×</button></div>
+    <div id="favoritesContent"></div>
   </div>
-
 </div>
-
 
 <!-- HISTORY -->
-
-<div
-  class="overlay"
-  id="historyModal">
-
+<div class="overlay" id="historyModal">
   <div class="modal">
-
-    <div class="modal-head">
-
-      <h2>
-        Teklif Geçmişim
-      </h2>
-
-      <button
-        class="close"
-        onclick="closeModals()">
-        ×
-      </button>
-
-    </div>
-
-
-    <div id="historyContent">
-    </div>
-
+    <div class="modal-head"><h2>Teklif Geçmişim</h2><button class="close" onclick="closeModals()">×</button></div>
+    <div id="historyContent"></div>
   </div>
-
 </div>
-
 
 <!-- HOW -->
-
-<div
-  class="overlay"
-  id="howModal">
-
+<div class="overlay" id="howModal">
   <div class="modal">
-
-    <div class="modal-head">
-
-      <h2>
-        LOFF nasıl çalışır?
-      </h2>
-
-      <button
-        class="close"
-        onclick="closeModals()">
-        ×
-      </button>
-
-    </div>
-
-
-    <div class="detail-row">
-      <span>01</span>
-      <strong>Vault'u keşfet</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>02</span>
-      <strong>İçeriğini tahmin et</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>03</span>
-      <strong>Teklif ver</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>04</span>
-      <strong>Süreyi bekle</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>05</span>
-      <strong>Kasa açılır</strong>
-    </div>
-
-
-    <div class="notice">
-
-      LOFF'un bu sürümü konsept ve kullanıcı
-      deneyimini göstermek için hazırlanmış
-      demo/prototiptir.
-
-    </div>
-
+    <div class="modal-head"><h2>LOFF nasıl çalışır?</h2><button class="close" onclick="closeModals()">×</button></div>
+    <div class="detail-row"><span>01</span><strong>Vault'u keşfet</strong></div>
+    <div class="detail-row"><span>02</span><strong>İçeriğini tahmin et</strong></div>
+    <div class="detail-row"><span>03</span><strong>Teklif ver</strong></div>
+    <div class="detail-row"><span>04</span><strong>Süreyi bekle</strong></div>
+    <div class="detail-row"><span>05</span><strong>Kasa açılır</strong></div>
+    <p style="color:#7f889b;line-height:1.6;margin-top:20px">Bu sürüm LOFF konseptini ve kullanıcı deneyimini göstermek amacıyla hazırlanmış demo/prototiptir.</p>
   </div>
-
 </div>
 
-
-<div
-  class="toast"
-  id="toast">
+<!-- REVEAL -->
+<div class="overlay" id="revealModal">
+  <div class="modal">
+    <div class="modal-head"><h2>Kasa Açıldı</h2><button class="close" onclick="closeModals()">×</button></div>
+    <div class="reveal">
+      <div class="reveal-box" id="revealIcon">⌚</div>
+      <h2 id="revealTitle">GİZLİ DEĞER ORTAYA ÇIKTI</h2>
+      <div class="winner">Kazanan teklif: $<span id="winnerPrice">0</span></div>
+      <div class="success" id="winnerMessage">Vault tamamlandı.</div>
+      <button class="primary" onclick="closeModals()">Devam Et</button>
+    </div>
+  </div>
 </div>
 
+<div class="toast" id="toast"></div>
 
 <script>
-
-const vaults = [
-
-{
-  id:1,
-  title:"Mystery Tech",
-  category:"tech",
-  icon:"📱",
-  price:35,
-  bids:18,
-  time:1320,
-  desc:"Kasanın içinde teknoloji kategorisinden gizli bir ürün bulunuyor."
-},
-
-{
-  id:2,
-  title:"Mystery Fashion",
-  category:"fashion",
-  icon:"👟",
-  price:60,
-  bids:24,
-  time:1870,
-  desc:"Sınırlı veya özel bir moda ürünü olabilir. İçerik süre bitene kadar gizli."
-},
-
-{
-  id:3,
-  title:"Mystery Camera",
-  category:"mystery",
-  icon:"📷",
-  price:75,
-  bids:31,
-  time:1638,
-  desc:"Fotoğraf dünyasından gizemli bir değer kasanın içinde."
-},
-
-{
-  id:4,
-  title:"Mystery Gaming",
-  category:"gaming",
-  icon:"🎮",
-  price:50,
-  bids:12,
-  time:2466,
-  desc:"Gaming dünyasından sürpriz bir ürün. İçeriği kasa açıldığında görülecek."
-},
-
-{
-  id:5,
-  title:"Mystery Audio",
-  category:"tech",
-  icon:"🎧",
-  price:42,
-  bids:16,
-  time:980,
-  desc:"Ses teknolojileri kategorisinden gizli bir ürün."
-},
-
-{
-  id:6,
-  title:"Mystery Luxury",
-  category:"fashion",
-  icon:"⌚",
-  price:120,
-  bids:39,
-  time:3210,
-  desc:"Premium kategoriden özel bir ürün içeriyor olabilir."
-}
-
+const initialVaults=[
+{id:1,title:"Mystery Tech",category:"tech",icon:"📱",price:35,bids:18,time:1320,desc:"Kasanın içinde teknoloji kategorisinden gizli bir ürün bulunuyor."},
+{id:2,title:"Mystery Fashion",category:"fashion",icon:"👟",price:60,bids:24,time:1870,desc:"Sınırlı veya özel bir moda ürünü olabilir. İçerik süre bitene kadar gizli."},
+{id:3,title:"Mystery Camera",category:"mystery",icon:"📷",price:75,bids:31,time:1638,desc:"Fotoğraf dünyasından gizemli bir değer kasanın içinde."},
+{id:4,title:"Mystery Gaming",category:"gaming",icon:"🎮",price:50,bids:12,time:2466,desc:"Gaming dünyasından sürpriz bir ürün. İçeriği kasa açıldığında görülecek."},
+{id:5,title:"Mystery Audio",category:"tech",icon:"🎧",price:42,bids:16,time:980,desc:"Ses teknolojileri kategorisinden gizli bir ürün."},
+{id:6,title:"Mystery Luxury",category:"fashion",icon:"⌚",price:120,bids:39,time:3210,desc:"Premium kategoriden özel bir ürün içeriyor olabilir."}
 ];
 
+const STORAGE="loffV22State";
+let saved=JSON.parse(localStorage.getItem(STORAGE)||"null");
+let state=saved||{
+vaults:initialVaults,
+favorites:[],
+balance:100,
+loggedIn:false,
+userName:"",
+history:[],
+finished:[]
+};
+let currentFilter="all",selectedVault=null;
 
-let currentFilter="all";
-
-let selectedVault=null;
-
-let favorites=
-JSON.parse(
-  localStorage.getItem("loffFavorites") || "[]"
-);
-
-let history=
-JSON.parse(
-  localStorage.getItem("loffHistory") || "[]"
-);
-
-let balance=100;
-
-let loggedIn=false;
-
-let registerMode=false;
-
-
-/* VAULTLAR */
-
+function save(){localStorage.setItem(STORAGE,JSON.stringify(state))}
+function formatTime(sec){
+sec=Math.max(0,Math.floor(sec));let h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;
+return h>0?String(h).padStart(2,"0")+":"+String(m).padStart(2,"0"):String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+}
 function renderVaults(){
-
-  const grid=
-    document.getElementById("vaultGrid");
-
-  const search=
-    document
-    .getElementById("search")
-    .value
-    .toLowerCase()
-    .trim();
-
-
-  const list=
-    vaults.filter(v=>{
-
-      const categoryMatch=
-        currentFilter==="all" ||
-        v.category===currentFilter;
-
-      const searchMatch=
-        v.title
-        .toLowerCase()
-        .includes(search);
-
-      return categoryMatch && searchMatch;
-
-    });
-
-
-  if(!list.length){
-
-    grid.innerHTML=
-      `<div class="empty">
-        Vault bulunamadı.
-      </div>`;
-
-    return;
-
-  }
-
-
-  grid.innerHTML=
-    list.map(v=>{
-
-      const saved=
-        favorites.includes(v.id);
-
-
-      return `
-
-      <article class="card">
-
-        <div class="card-media">
-
-          <div class="status">
-            ● LIVE
-          </div>
-
-          <button
-            class="heart ${saved?"saved":""}"
-            onclick="toggleFavorite(${v.id},event)">
-            ${saved?"♥":"♡"}
-          </button>
-
-          <div class="product-icon">
-            ${v.icon}
-          </div>
-
-        </div>
-
-
-        <div class="card-body">
-
-          <div class="card-title">
-            ${v.title}
-          </div>
-
-          <div class="card-meta">
-
-            <span>
-              Vault #${String(v.id).padStart(3,"0")}
-            </span>
-
-            <span>
-              ${formatTime(v.time)}
-            </span>
-
-          </div>
-
-
-          <div class="card-price">
-            $${v.price}
-          </div>
-
-
-          <button
-            class="card-button"
-            onclick="openDetail(${v.id})">
-            İncele
-          </button>
-
-        </div>
-
-      </article>
-
-      `;
-
-    }).join("");
-
+const grid=document.getElementById("vaultGrid"),q=document.getElementById("search").value.toLowerCase().trim();
+const list=state.vaults.filter(v=>(currentFilter==="all"||v.category===currentFilter)&&v.title.toLowerCase().includes(q)&&!state.finished.includes(v.id));
+if(!list.length){grid.innerHTML='<div class="empty">Bu kriterlere uygun aktif Vault bulunamadı.</div>';return}
+grid.innerHTML=list.map(v=>{
+const fav=state.favorites.includes(v.id);
+return `<article class="card"><div class="card-media"><div class="status">● LIVE</div><button class="heart ${fav?"saved":""}" onclick="toggleFavorite(${v.id},event)">${fav?"♥":"♡"}</button><div class="product-icon">🔒</div></div><div class="card-body"><div class="card-title">${v.title}</div><div class="card-meta"><span>Vault #${String(v.id).padStart(3,"0")}</span><span>${formatTime(v.time)}</span></div><div class="card-price">$${v.price}</div><button class="card-button" onclick="openDetail(${v.id})">İncele &amp; Teklif Ver</button></div></article>`;
+}).join("");
 }
-
-
-/* FİLTRE */
-
-function setFilter(filter,button){
-
-  currentFilter=filter;
-
-  document
-    .querySelectorAll(".filters button")
-    .forEach(
-      b=>b.classList.remove("active")
-    );
-
-  button.classList.add("active");
-
-  renderVaults();
-
-}
-
-
-/* DETAY */
-
+function setFilter(filter,btn){currentFilter=filter;document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");renderVaults()}
 function openDetail(id){
-
-  selectedVault=
-    vaults.find(v=>v.id===id);
-
-  if(!selectedVault)return;
-
-
-  document.getElementById("detailTitle")
-    .textContent=
-    selectedVault.title;
-
-
-  document.getElementById("detailIcon")
-    .textContent=
-    selectedVault.icon;
-
-
-  document.getElementById("detailDesc")
-    .textContent=
-    selectedVault.desc;
-
-
-  document.getElementById("detailPrice")
-    .textContent=
-    selectedVault.price;
-
-
-  document.getElementById("detailVault")
-    .textContent=
-    "#"+String(selectedVault.id).padStart(3,"0");
-
-
-  document.getElementById("detailTime")
-    .textContent=
-    formatTime(selectedVault.time);
-
-
-  document.getElementById("detailBids")
-    .textContent=
-    selectedVault.bids;
-
-
-  document.getElementById("detailNext")
-    .textContent=
-    selectedVault.price+1;
-
-
-  document.getElementById("detailModal")
-    .classList.add("show");
-
+selectedVault=state.vaults.find(v=>v.id===id);if(!selectedVault||state.finished.includes(id))return;
+document.getElementById("detailTitle").textContent=selectedVault.title;
+document.getElementById("detailIcon").textContent="🔒";
+document.getElementById("detailDesc").textContent=selectedVault.desc;
+document.getElementById("detailPrice").textContent=selectedVault.price;
+document.getElementById("detailNext").textContent=selectedVault.price+1;
+document.getElementById("detailVault").textContent="#"+String(id).padStart(3,"0");
+document.getElementById("detailTime").textContent=formatTime(selectedVault.time);
+document.getElementById("detailBids").textContent=selectedVault.bids;
+document.getElementById("detailModal").classList.add("show");
 }
-
-
-/* TEKLİF */
-
 function makeBidFromDetail(){
-
-  if(!selectedVault)return;
-
-
-  if(!loggedIn){
-
-    closeModals();
-
-    openLogin();
-
-    toast(
-      "Teklif vermek için giriş yap."
-    );
-
-    return;
-
-  }
-
-
-  if(balance<1){
-
-    toast(
-      "Demo bakiyen yetersiz."
-    );
-
-    return;
-
-  }
-
-
-  selectedVault.price++;
-
-  selectedVault.bids++;
-
-  balance--;
-
-
-  history.unshift({
-
-    vault:selectedVault.title,
-
-    id:selectedVault.id,
-
-    price:selectedVault.price,
-
-    time:new Date()
-      .toLocaleTimeString(
-        "tr-TR",
-        {
-          hour:"2-digit",
-          minute:"2-digit"
-        }
-      )
-
-  });
-
-
-  localStorage.setItem(
-    "loffHistory",
-    JSON.stringify(
-      history.slice(0,30)
-    )
-  );
-
-
-  document.getElementById("balance")
-    .textContent=
-    balance;
-
-
-  document.getElementById("detailPrice")
-    .textContent=
-    selectedVault.price;
-
-
-  document.getElementById("detailNext")
-    .textContent=
-    selectedVault.price+1;
-
-
-  document.getElementById("detailBids")
-    .textContent=
-    selectedVault.bids;
-
-
-  renderVaults();
-
-
-  toast(
-    `Teklif verildi — $${selectedVault.price}`
-  );
-
+if(!selectedVault)return;
+if(selectedVault.time<=0){toast("Bu Vault artık aktif değil.");return}
+if(!state.loggedIn){closeModals();openLogin();toast("Teklif vermek için giriş yapmalısın.");return}
+const next=selectedVault.price+1;
+if(state.balance<next){toast("Demo bakiyen yetersiz.");return}
+selectedVault.price=next;selectedVault.bids++;state.balance-=next;
+state.history.unshift({vault:selectedVault.title,id:selectedVault.id,amount:next,at:new Date().toLocaleString("tr-TR")});
+state.history=state.history.slice(0,30);save();
+document.getElementById("balance").textContent=state.balance;
+document.getElementById("detailPrice").textContent=selectedVault.price;
+document.getElementById("detailNext").textContent=selectedVault.price+1;
+document.getElementById("detailBids").textContent=selectedVault.bids;
+renderVaults();toast("Teklif verildi — $"+next);
 }
-
-
-/* FAVORİ */
-
 function toggleFavorite(id,event){
-
-  event.stopPropagation();
-
-
-  if(favorites.includes(id)){
-
-    favorites=
-      favorites.filter(
-        x=>x!==id
-      );
-
-    toast(
-      "Favorilerden çıkarıldı."
-    );
-
-  }else{
-
-    favorites.push(id);
-
-    toast(
-      "Favorilere eklendi."
-    );
-
-  }
-
-
-  localStorage.setItem(
-    "loffFavorites",
-    JSON.stringify(favorites)
-  );
-
-
-  renderVaults();
-
+event.stopPropagation();
+const i=state.favorites.indexOf(id);
+if(i>=0){state.favorites.splice(i,1);toast("Favorilerden çıkarıldı.")}else{state.favorites.push(id);toast("Favorilere eklendi.")}
+save();renderVaults();
 }
-
-
-/* FAVORİLER */
-
 function openFavorites(){
-
-  closeModals();
-
-
-  const box=
-    document.getElementById(
-      "favoritesContent"
-    );
-
-
-  const list=
-    vaults.filter(
-      v=>favorites.includes(v.id)
-    );
-
-
-  if(!list.length){
-
-    box.innerHTML=
-      `<p style="
-        color:#7e879a;
-        text-align:center;
-        padding:30px">
-        Henüz favori vault eklemedin.
-      </p>`;
-
-  }else{
-
-    box.innerHTML=
-      list.map(v=>`
-
-        <div class="detail-row">
-
-          <span>
-            ${v.icon} ${v.title}
-          </span>
-
-          <strong>
-            $${v.price}
-          </strong>
-
-        </div>
-
-      `).join("");
-
-  }
-
-
-  document
-    .getElementById("favoritesModal")
-    .classList.add("show");
-
+closeModals();const box=document.getElementById("favoritesContent"),list=state.vaults.filter(v=>state.favorites.includes(v.id));
+box.innerHTML=list.length?list.map(v=>`<div class="detail-row"><span>${v.title}</span><strong>$${v.price}</strong></div>`).join(""):'<p style="color:#7e879a;text-align:center;padding:30px">Henüz favori Vault eklemedin.</p>';
+document.getElementById("favoritesModal").classList.add("show");
 }
-
-
-/* GİRİŞ */
-
-function openLogin(){
-
-  closeModals();
-
-  registerMode=false;
-
-  document.getElementById("loginTitle")
-    .textContent=
-    "LOFF'a Giriş Yap";
-
-  document.getElementById("authButton")
-    .textContent=
-    "Giriş Yap";
-
-  document.getElementById("registerButton")
-    .textContent=
-    "Hesap Oluştur";
-
-  document
-    .getElementById("loginModal")
-    .classList.add("show");
-
+function openLogin(){closeModals();document.getElementById("loginTitle").textContent="LOFF'a Giriş Yap";document.getElementById("loginModal").classList.add("show")}
+function showRegister(){document.getElementById("loginTitle").textContent="LOFF Hesabı Oluştur";toast("Demo hesap: e-posta ve şifre girerek devam edebilirsin.")}
+function fakeLogin(){
+const email=document.getElementById("email").value.trim();
+if(!email||!email.includes("@")){toast("Geçerli bir e-posta gir.");return}
+state.loggedIn=true;state.userName=email.split("@")[0]||"Kullanıcı";save();updateHeader();closeModals();toast("LOFF'a hoş geldin, "+state.userName+"!");
 }
-
-
-/* KAYIT / GİRİŞ GEÇİŞ */
-
-function toggleRegister(){
-
-  registerMode=
-    !registerMode;
-
-
-  if(registerMode){
-
-    document.getElementById("loginTitle")
-      .textContent=
-      "LOFF'a Katıl";
-
-    document.getElementById("authButton")
-      .textContent=
-      "Hesap Oluştur";
-
-    document.getElementById("registerButton")
-      .textContent=
-      "Giriş Yap";
-
-  }else{
-
-    document.getElementById("loginTitle")
-      .textContent=
-      "LOFF'a Giriş Yap";
-
-    document.getElementById("authButton")
-      .textContent=
-      "Giriş Yap";
-
-    document.getElementById("registerButton")
-      .textContent=
-      "Hesap Oluştur";
-
-  }
-
+function updateHeader(){
+document.getElementById("profileName").textContent=state.loggedIn?state.userName:"Misafir Kullanıcı";
+document.getElementById("profileStatus").textContent=state.loggedIn?"Demo hesap":"Demo hesap";
+document.getElementById("balance").textContent=state.balance;
+document.getElementById("loginBtn").style.display=state.loggedIn?"none":"block";
+document.getElementById("userPill").style.display=state.loggedIn?"block":"none";
+document.getElementById("userPillName").textContent=state.userName;
 }
-
-
-/* AUTH */
-
-function submitAuth(){
-
-  const email=
-    document
-      .getElementById("email")
-      .value
-      .trim();
-
-
-  const password=
-    document
-      .getElementById("password")
-      .value;
-
-
-  if(
-    !email ||
-    !email.includes("@")
-  ){
-
-    toast(
-      "Geçerli bir e-posta gir."
-    );
-
-    return;
-
-  }
-
-
-  if(password.length<4){
-
-    toast(
-      "Şifre en az 4 karakter olmalı."
-    );
-
-    return;
-
-  }
-
-
-  loggedIn=true;
-
-
-  const username=
-    email.split("@")[0];
-
-
-  document.getElementById("profileName")
-    .textContent=
-    username;
-
-
-  document.getElementById("profileStatus")
-    .textContent=
-    "Demo hesap aktif";
-
-
-  document.getElementById("loginBtn")
-    .style.display=
-    "none";
-
-
-  document.getElementById("userBtn")
-    .style.display=
-    "block";
-
-
-  closeModals();
-
-
-  toast(
-    registerMode
-      ? "Hesabın oluşturuldu."
-      : "LOFF'a hoş geldin."
-  );
-
-}
-
-
-/* ÇIKIŞ */
-
-function logout(){
-
-  loggedIn=false;
-
-
-  document.getElementById("loginBtn")
-    .style.display=
-    "block";
-
-
-  document.getElementById("userBtn")
-    .style.display=
-    "none";
-
-
-  closeModals();
-
-
-  toast(
-    "Çıkış yapıldı."
-  );
-
-}
-
-
-/* PROFİL */
-
-function openProfile(){
-
-  closeModals();
-
-
-  document.getElementById("balance")
-    .textContent=
-    balance;
-
-
-  document
-    .getElementById("profileModal")
-    .classList.add("show");
-
-}
-
-
-/* GEÇMİŞ */
-
+function openProfile(){closeModals();updateHeader();document.getElementById("profileModal").classList.add("show")}
+function logout(){state.loggedIn=false;state.userName="";save();updateHeader();closeModals();toast("Çıkış yapıldı.")}
 function showHistory(){
-
-  closeModals();
-
-
-  const box=
-    document.getElementById(
-      "historyContent"
-    );
-
-
-  if(!history.length){
-
-    box.innerHTML=
-      `<p style="
-        color:#7e879a;
-        text-align:center;
-        padding:30px">
-        Henüz teklif geçmişin yok.
-      </p>`;
-
-  }else{
-
-    box.innerHTML=
-      history.map(x=>`
-
-        <div class="history-item">
-
-          <div>
-
-            <strong>
-              ${x.vault}
-            </strong>
-
-            <small>
-              Vault #${String(x.id).padStart(3,"0")}
-              · ${x.time}
-            </small>
-
-          </div>
-
-          <strong>
-            $${x.price}
-          </strong>
-
-        </div>
-
-      `).join("");
-
-  }
-
-
-  document
-    .getElementById("historyModal")
-    .classList.add("show");
-
+closeModals();const box=document.getElementById("historyContent");
+box.innerHTML=state.history.length?state.history.map(h=>`<div class="history-item"><strong>Vault #${String(h.id).padStart(3,"0")} — ${h.vault}</strong><span>Teklif: $${h.amount} · ${h.at}</span></div>`).join(""):'<p style="color:#7e879a;text-align:center;padding:30px">Henüz teklif geçmişin yok.</p>';
+document.getElementById("historyModal").classList.add("show");
 }
-
-
-/* NASIL ÇALIŞIR */
-
-function openHow(){
-
-  closeModals();
-
-  document
-    .getElementById("howModal")
-    .classList.add("show");
-
-}
-
-
-/* KAPAT */
-
-function closeModals(){
-
-  document
-    .querySelectorAll(".overlay")
-    .forEach(
-      x=>x.classList.remove("show")
-    );
-
-}
-
-
-/* ANA SAYFA */
-
-function showHome(button){
-
-  closeModals();
-
-
-  window.scrollTo({
-
-    top:0,
-
-    behavior:"smooth"
-
-  });
-
-
-  if(button){
-
-    document
-      .querySelectorAll(".nav button")
-      .forEach(
-        b=>b.classList.remove("active")
-      );
-
-    button.classList.add("active");
-
-  }
-
-}
-
-
-/* VAULTLAR */
-
-function scrollToVaults(){
-
-  closeModals();
-
-
-  document
-    .getElementById("vaultGrid")
-    .scrollIntoView({
-
-      behavior:"smooth"
-
-    });
-
-}
-
-
-/* SÜRE */
-
-function formatTime(seconds){
-
-  let h=
-    Math.floor(
-      seconds/3600
-    );
-
-
-  let m=
-    Math.floor(
-      (seconds%3600)/60
-    );
-
-
-  let s=
-    seconds%60;
-
-
-  if(h>0){
-
-    return(
-      String(h).padStart(2,"0")
-      +":"
-      +String(m).padStart(2,"0")
-      +":"
-      +String(s).padStart(2,"0")
-    );
-
-  }
-
-
-  return(
-    String(m).padStart(2,"0")
-    +":"
-    +String(s).padStart(2,"0")
-  );
-
-}
-
-
-/* BİLDİRİM */
-
+function openHow(){closeModals();document.getElementById("howModal").classList.add("show")}
+function closeModals(){document.querySelectorAll(".overlay").forEach(x=>x.classList.remove("show"))}
+function showHome(btn){closeModals();document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
+function scrollToVaults(){closeModals();document.getElementById("vaultGrid").scrollIntoView({behavior:"smooth"})}
 let toastTimer;
+function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2300)}
 
-
-function toast(message){
-
-  const el=
-    document.getElementById(
-      "toast"
-    );
-
-
-  el.textContent=
-    message;
-
-
-  el.classList.add("show");
-
-
-  clearTimeout(
-    toastTimer
-  );
-
-
-  toastTimer=
-    setTimeout(
-      ()=>{
-        el.classList.remove("show");
-      },
-      2200
-    );
-
+function finishVault(v){
+if(state.finished.includes(v.id))return;
+state.finished.push(v.id);save();
+if(selectedVault&&selectedVault.id===v.id){
+document.getElementById("winnerPrice").textContent=v.price;
+document.getElementById("revealTitle").textContent=v.title+" — KASA AÇILDI";
+document.getElementById("revealIcon").textContent=v.icon;
+const myWin=state.history.some(h=>h.id===v.id&&h.amount===v.price);
+document.getElementById("winnerMessage").textContent=myWin?"Tebrikler! Demo sürümünde kazanan sen olabilirsin. Gerçek ödeme veya teslimat yapılmaz.":"Vault tamamlandı. Kazanan demo ortamında gösterilmektedir.";
 }
-
-
-/* GERİ SAYIM */
-
+renderVaults();
+}
 setInterval(()=>{
-
-  vaults.forEach(v=>{
-
-    if(v.time>0){
-
-      v.time--;
-
-    }
-
-  });
-
-
-  renderVaults();
-
-
-  if(selectedVault){
-
-    const current=
-      vaults.find(
-        v=>v.id===selectedVault.id
-      );
-
-
-    if(
-      current &&
-      document
-        .getElementById("detailModal")
-        .classList
-        .contains("show")
-    ){
-
-      document
-        .getElementById("detailTime")
-        .textContent=
-        formatTime(current.time);
-
-    }
-
-  }
-
+state.vaults.forEach(v=>{if(v.time>0){v.time--;if(v.time===0)finishVault(v)}});
+if(selectedVault){
+const live=state.vaults.find(v=>v.id===selectedVault.id);
+if(live&&!state.finished.includes(live.id)){
+document.getElementById("detailTime").textContent=formatTime(live.time);
+document.getElementById("detailPrice").textContent=live.price;
+document.getElementById("detailNext").textContent=live.price+1;
+document.getElementById("detailBids").textContent=live.bids;
+}}
+save();renderVaults();
 },1000);
 
-
-/* DIŞARI TIKLAMA */
-
-document
-  .querySelectorAll(".overlay")
-  .forEach(overlay=>{
-
-    overlay.addEventListener(
-      "click",
-      function(e){
-
-        if(e.target===overlay){
-
-          closeModals();
-
-        }
-
-      }
-    );
-
-  });
-
-
-/* BAŞLAT */
-
-renderVaults();
-
+document.querySelectorAll(".overlay").forEach(o=>o.addEventListener("click",e=>{if(e.target===o)closeModals()}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModals()});
+renderVaults();updateHeader();
 </script>
-
 </body>
 </html>
