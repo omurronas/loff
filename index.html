@@ -41,332 +41,69 @@ small.status{color:#7e8aa4}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="logo">loff</div>
-  <div class="credits">◇ <span id="creditCount">100</span> Credits</div>
-</header>
-
+<header><div class="logo">loff</div><div class="credits">◇ <span id="creditCount">100</span> Credits</div></header>
 <nav class="nav">
-  <button class="active" data-view="home">Ana Sayfa</button>
-  <button data-view="vaults">Vault'lar</button>
-  <button data-view="leaderboard">🏆 Liderlik</button>
-  <button data-view="how">Nasıl Çalışır?</button>
+<button class="active" data-view="home">Ana Sayfa</button>
+<button data-view="vaults">Vault'lar</button>
+<button data-view="leaderboard">🏆 Liderlik</button>
+<button data-view="how">Nasıl Çalışır?</button>
 </nav>
-
 <main id="homeView">
-  <section class="hero">
-    <div class="badge">V4.0 • CORE ENGINE</div>
-    <h1>Kasanın içinde<br><span>ne var?</span></h1>
-    <p>Merak et. Tahmin et. Rekabet et. Vault kapanmadan hamleni yap ve LOFF deneyiminin bir parçası ol.</p>
-  </section>
-
-  <section class="wrap">
-    <h2 class="section-title">Canlı Vault'lar</h2>
-    <p class="sub">Her vault farklı bir mücadele.</p>
-    <div class="filters">
-      <button class="filter active" data-cat="all">Tümü</button>
-      <button class="filter" data-cat="Teknoloji">Teknoloji</button>
-      <button class="filter" data-cat="Gaming">Gaming</button>
-      <button class="filter" data-cat="Moda">Moda</button>
-      <button class="filter" data-cat="Diğer">Diğer</button>
-    </div>
-    <div id="vaults" class="vaults"><div class="empty">Vault'lar yükleniyor…</div></div>
-  </section>
-</main>
-
-<section id="vaultsView" class="wrap" style="display:none">
-  <h2 class="section-title">Vault'lar</h2>
-  <p class="sub">LOFF üzerindeki açık mücadeleler.</p>
-  <div id="allVaults" class="vaults"></div>
+<section class="hero">
+<div class="badge">V4.0 • CORE ENGINE</div>
+<h1>Kasanın içinde<br><span>ne var?</span></h1>
+<p>Merak et. Tahmin et. Rekabet et. Vault kapanmadan hamleni yap ve LOFF deneyiminin bir parçası ol.</p>
 </section>
-
-<section id="leaderboardView" class="wrap" style="display:none">
-  <h2 class="section-title">🏆 Liderlik</h2>
-  <p class="sub">En yüksek skorlar.</p>
-  <div id="leaders" class="vaults"><div class="empty">Liderlik yükleniyor…</div></div>
-</section>
-
-<section id="howView" class="wrap" style="display:none">
-  <h2 class="section-title">Nasıl Çalışır?</h2>
-  <div class="card" style="line-height:1.8">
-    <p><b>1.</b> Bir Vault seç.</p><br>
-    <p><b>2.</b> İçindeki gizli ürünü/tahmini keşfet.</p><br>
-    <p><b>3.</b> Teklifini ver. Son 10 saniyede teklif gelirse sayaç uzar.</p><br>
-    <p><b>4.</b> Kazanan kullanıcı Vault'u kazanır.</p>
-  </div>
-</section>
-
-<div id="modal" class="modal">
-  <div class="box">
-    <h2 id="modalTitle">Teklif Ver</h2>
-    <p class="meta" id="modalInfo"></p>
-    <label>Teklif miktarı</label>
-    <input id="bidAmount" type="number" min="1" step="1" placeholder="Örn. 25">
-    <div class="actions">
-      <button class="ghost" id="closeModal">Vazgeç</button>
-      <button class="primary" id="submitBid">Teklifi Gönder</button>
-    </div>
-  </div>
+<section class="wrap">
+<h2 class="section-title">Canlı Vault'lar</h2><p class="sub">Her vault farklı bir mücadele.</p>
+<div class="filters">
+<button class="filter active" data-cat="all">Tümü</button>
+<button class="filter" data-cat="Teknoloji">Teknoloji</button>
+<button class="filter" data-cat="Gaming">Gaming</button>
+<button class="filter" data-cat="Moda">Moda</button>
+<button class="filter" data-cat="Diğer">Diğer</button>
 </div>
-
+<div id="vaults" class="vaults"><div class="empty">Vault'lar yükleniyor…</div></div>
+</section>
+</main>
+<section id="vaultsView" class="wrap" style="display:none"><h2 class="section-title">Vault'lar</h2><p class="sub">LOFF üzerindeki açık mücadeleler.</p><div id="allVaults" class="vaults"></div></section>
+<section id="leaderboardView" class="wrap" style="display:none"><h2 class="section-title">🏆 Liderlik</h2><p class="sub">En yüksek skorlar.</p><div id="leaders" class="vaults"><div class="empty">Liderlik yükleniyor…</div></div></section>
+<section id="howView" class="wrap" style="display:none"><h2 class="section-title">Nasıl Çalışır?</h2><div class="card" style="line-height:1.8"><p><b>1.</b> Bir Vault seç.</p><br><p><b>2.</b> İçindeki gizli ürünü/tahmini keşfet.</p><br><p><b>3.</b> Teklifini ver. Son 10 saniyede teklif gelirse sayaç uzar.</p><br><p><b>4.</b> Kazanan kullanıcı Vault'u kazanır.</p></div></section>
+<div id="modal" class="modal"><div class="box"><h2 id="modalTitle">Teklif Ver</h2><p class="meta" id="modalInfo"></p><label>Teklif miktarı</label><input id="bidAmount" type="number" min="1" step="1" placeholder="Örn. 25"><div class="actions"><button class="ghost" id="closeModal">Vazgeç</button><button class="primary" id="submitBid">Teklifi Gönder</button></div></div></div>
 <div id="toast" class="toast"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* =========================================================
-   LOFF — GitHub Pages + Supabase
-   Bu dosya komple index.html olarak kullanılacaktır.
-   ========================================================= */
-
-const SUPABASE_URL = "https://tswafgokbqzasiuxhysh.supabase.co";
+const SUPABASE_URL = "https://tswafgokbqzasixuhysh.supabase.co";
 const SUPABASE_KEY = "sb_publishable_mTnOZYQs7_kd1GWiw2jKDQ_99MyYo_t";
-
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-let vaultData = [];
-let selectedVault = null;
-let activeCategory = "all";
-
-const $ = id => document.getElementById(id);
-
-function toast(msg){
-  $("toast").textContent = msg;
-  $("toast").style.display = "block";
-  setTimeout(() => $("toast").style.display = "none", 2600);
-}
-
-function val(o,names,fallback=""){
-  for(const n of names){
-    if(o && o[n] !== undefined && o[n] !== null && o[n] !== "")
-      return o[n];
-  }
-  return fallback;
-}
-
-function money(v){
-  const n = Number(v || 0);
-  return Number.isFinite(n) ? n.toLocaleString("tr-TR") : v;
-}
-
-function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g,m => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[m]));
-}
-
+const {createClient}=supabase;
+const db=createClient(SUPABASE_URL,SUPABASE_KEY);
+let vaultData=[],selectedVault=null,activeCategory="all";
+const $=id=>document.getElementById(id);
+function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2600)}
+function val(o,names,fallback=""){for(const n of names)if(o&&o[n]!==undefined&&o[n]!==null&&o[n]!=="")return o[n];return fallback}
+function money(v){const n=Number(v||0);return Number.isFinite(n)?n.toLocaleString("tr-TR"):v}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 function renderVaults(target,data){
-  if(!data.length){
-    target.innerHTML = '<div class="empty">Şu anda gösterilecek Vault bulunamadı.</div>';
-    return;
-  }
-
-  target.innerHTML = data.map(v => {
-    const id = val(v,["id","vault_id"],"");
-    const title = val(v,["baslik","başlık","title","name"],"LOFF Vault");
-    const cat = val(v,["kategori","category"],"Diğer");
-    const current = val(v,["mevcut_teklif","current_bid","current_bid_amount","fiyat","price"],0);
-    const end = val(v,["bitis_zamani","bitiş_zamanı","end_time","ends_at"],"");
-
-    return `<article class="card">
-      <h3>${escapeHtml(title)}</h3>
-      <div class="meta">${escapeHtml(cat)} · ${end ? escapeHtml(new Date(end).toLocaleString("tr-TR")) : "Canlı"}</div>
-      <div class="card-row">
-        <strong>${money(current)} Credits</strong>
-        <button class="primary" onclick="openBid(${JSON.stringify(String(id))})">Teklif Ver</button>
-      </div>
-    </article>`;
-  }).join("");
-}
-
+if(!data.length){target.innerHTML='<div class="empty">Şu anda gösterilecek Vault bulunamadı.</div>';return}
+target.innerHTML=data.map(v=>{
+const id=val(v,["id","vault_id"],"");const title=val(v,["baslik","başlık","title","name"],"LOFF Vault");const cat=val(v,["kategori","category"],"Diğer");const current=val(v,["mevcut_teklif","current_bid","current_bid_amount","fiyat","price"],0);const end=val(v,["bitis_zamani","bitiş_zamanı","end_time","ends_at"],"");
+return `<article class="card"><h3>${escapeHtml(title)}</h3><div class="meta">${escapeHtml(cat)} · ${end?escapeHtml(new Date(end).toLocaleString("tr-TR")):"Canlı"}</div><div class="card-row"><strong>${money(current)} Credits</strong><button class="primary" onclick="openBid(${JSON.stringify(String(id))})">Teklif Ver</button></div></article>`
+}).join("")}
 async function loadVaults(){
-  /*
-    Supabase tablosunun adı önceki kurulumdaki gibi
-    "acik artirmalar" olarak bırakıldı.
-  */
-  const {data,error} = await db.from("acik artirmalar").select("*");
-
-  if(error){
-    const msg =
-      'Supabase bağlantısı kuruldu ancak “açık artırmalar” tablosu okunamadı.' +
-      '<br><small class="status">' + escapeHtml(error.message) + '</small>';
-
-    $("vaults").innerHTML = '<div class="empty">' + msg + '</div>';
-    $("allVaults").innerHTML = $("vaults").innerHTML;
-    return;
-  }
-
-  vaultData = data || [];
-  applyFilter();
-}
-
-function applyFilter(){
-  const filtered =
-    activeCategory === "all"
-      ? vaultData
-      : vaultData.filter(v =>
-          String(val(v,["kategori","category"],"Diğer")) === activeCategory
-        );
-
-  renderVaults($("vaults"),filtered);
-  renderVaults($("allVaults"),filtered);
-}
-
-async function loadCredits(){
-  try{
-    const {data:{user}} = await db.auth.getUser();
-    if(!user) return;
-
-    const {data} =
-      await db.from("profiller").select("*").eq("id",user.id).maybeSingle();
-
-    if(data){
-      $("creditCount").textContent =
-        val(data,["credits","kredi","credit"],100);
-    }
-  }catch(e){}
-}
-
-async function loadLeaders(){
-  const box = $("leaders");
-
-  const {data,error} =
-    await db.from("profiller").select("*").limit(10);
-
-  if(error || !data || !data.length){
-    box.innerHTML =
-      '<div class="empty">Liderlik verisi henüz bulunamadı.</div>';
-    return;
-  }
-
-  box.innerHTML = data.map((p,i) => {
-    const name =
-      val(p,["kullanici_adi","kullanıcı_adi","username","ad","name"],"LOFF Kullanıcısı");
-
-    const score =
-      val(p,["skor","score","credits","kredi"],0);
-
-    return `<div class="card">
-      <div class="card-row">
-        <strong>#${i+1} · ${escapeHtml(name)}</strong>
-        <strong>${money(score)}</strong>
-      </div>
-    </div>`;
-  }).join("");
-}
-
-window.openBid = function(id){
-  selectedVault =
-    vaultData.find(v =>
-      String(val(v,["id","vault_id"],"")) === String(id)
-    );
-
-  if(!selectedVault){
-    toast("Vault bulunamadı.");
-    return;
-  }
-
-  $("modalTitle").textContent = "Teklif Ver";
-  $("modalInfo").textContent =
-    val(selectedVault,["baslik","başlık","title","name"],"LOFF Vault");
-
-  $("bidAmount").value = "";
-  $("modal").classList.add("show");
-
-  setTimeout(() => $("bidAmount").focus(),100);
-};
-
-async function submitBid(){
-  if(!selectedVault) return;
-
-  const amount = Number($("bidAmount").value);
-
-  if(!amount || amount <= 0){
-    toast("Geçerli bir teklif gir.");
-    return;
-  }
-
-  const vaultId =
-    val(selectedVault,["id","vault_id"],null);
-
-  const {data:{user}} = await db.auth.getUser();
-
-  if(!user){
-    toast("Teklif vermek için giriş yapmalısın.");
-    return;
-  }
-
-  /*
-    ÖNEMLİ:
-    Teklif tablosunun gerçek kolonları Supabase'de oluşturulduğunda
-    burada yalnızca gerçek kolon adları bırakılmalıdır.
-    Şimdilik önceki kurulumdaki isimler korunuyor.
-  */
-  const payload = {
-    kullanici_id:user.id,
-    acik_artirma_id:vaultId,
-    teklif:amount
-  };
-
-  const result =
-    await db.from("teklifler").insert(payload);
-
-  if(result.error){
-    toast("Teklif kaydedilemedi: " + result.error.message);
-    return;
-  }
-
-  $("modal").classList.remove("show");
-  toast("Teklifin gönderildi ✓");
-  await loadVaults();
-}
-
-document.querySelectorAll(".nav button").forEach(btn => {
-  btn.addEventListener("click",() => {
-    document.querySelectorAll(".nav button")
-      .forEach(x => x.classList.remove("active"));
-
-    btn.classList.add("active");
-
-    ["home","vaults","leaderboard","how"].forEach(v => {
-      $(v + "View").style.display = "none";
-    });
-
-    $(btn.dataset.view + "View").style.display = "block";
-
-    if(btn.dataset.view === "leaderboard")
-      loadLeaders();
-  });
-});
-
-document.querySelectorAll(".filter").forEach(btn => {
-  btn.addEventListener("click",() => {
-    document.querySelectorAll(".filter")
-      .forEach(x => x.classList.remove("active"));
-
-    btn.classList.add("active");
-    activeCategory = btn.dataset.cat;
-    applyFilter();
-  });
-});
-
-$("closeModal").onclick =
-  () => $("modal").classList.remove("show");
-
-$("modal").onclick = e => {
-  if(e.target.id === "modal")
-    $("modal").classList.remove("show");
-};
-
-$("submitBid").onclick = submitBid;
-
-loadVaults();
-loadCredits();
+const {data,error}=await db.from("acik artirmalar").select("*");
+if(error){const msg='Supabase bağlantısı kuruldu ancak “açık artırmalar” tablosu okunamadı.<br><small class="status">'+escapeHtml(error.message)+'</small>';$("vaults").innerHTML='<div class="empty">'+msg+'</div>';$("allVaults").innerHTML=$("vaults").innerHTML;return}
+vaultData=data||[];applyFilter()}
+function applyFilter(){const filtered=activeCategory==="all"?vaultData:vaultData.filter(v=>String(val(v,["kategori","category"],"Diğer"))===activeCategory);renderVaults($("vaults"),filtered);renderVaults($("allVaults"),filtered)}
+async function loadCredits(){try{const {data:{user}}=await db.auth.getUser();if(!user)return;const {data}=await db.from("profiller").select("*").eq("id",user.id).maybeSingle();if(data)$("creditCount").textContent=val(data,["credits","kredi","credit"],100)}catch(e){}}
+async function loadLeaders(){const box=$("leaders");const {data,error}=await db.from("profiller").select("*").limit(10);if(error||!data||!data.length){box.innerHTML='<div class="empty">Liderlik verisi henüz bulunamadı.</div>';return}box.innerHTML=data.map((p,i)=>{const name=val(p,["kullanici_adi","kullanıcı_adi","username","ad","name"],"LOFF Kullanıcısı");const score=val(p,["skor","score","credits","kredi"],0);return `<div class="card"><div class="card-row"><strong>#${i+1} · ${escapeHtml(name)}</strong><strong>${money(score)}</strong></div></div>`}).join("")}
+window.openBid=function(id){selectedVault=vaultData.find(v=>String(val(v,["id","vault_id"],""))===String(id));if(!selectedVault){toast("Vault bulunamadı.");return}$("modalTitle").textContent="Teklif Ver";$("modalInfo").textContent=val(selectedVault,["baslik","başlık","title","name"],"LOFF Vault");$("bidAmount").value="";$("modal").classList.add("show");setTimeout(()=>$("bidAmount").focus(),100)}
+async function submitBid(){if(!selectedVault)return;const amount=Number($("bidAmount").value);if(!amount||amount<=0){toast("Geçerli bir teklif gir.");return}const vaultId=val(selectedVault,["id","vault_id"],null);const {data:{user}}=await db.auth.getUser();if(!user){toast("Teklif vermek için giriş yapmalısın.");return}const result=await db.from("teklifler").insert({kullanici_id:user.id,acik_artirma_id:vaultId,teklif:amount});if(result.error){toast("Teklif kaydedilemedi: "+result.error.message);return}$("modal").classList.remove("show");toast("Teklifin gönderildi ✓");await loadVaults()}
+document.querySelectorAll(".nav button").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");["home","vaults","leaderboard","how"].forEach(v=>$(v+"View").style.display="none");$(btn.dataset.view+"View").style.display="block";if(btn.dataset.view==="leaderboard")loadLeaders()}));
+document.querySelectorAll(".filter").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");activeCategory=btn.dataset.cat;applyFilter()}));
+$("closeModal").onclick=()=>$("modal").classList.remove("show");
+$("modal").onclick=e=>{if(e.target.id==="modal")$("modal").classList.remove("show")};
+$("submitBid").onclick=submitBid;
+loadVaults();loadCredits();
 </script>
 </body>
 </html>
