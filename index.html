@@ -2,206 +2,248 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#06070b">
-<title>LOFF V4.0 — Core</title>
+<title>LOFF — Core</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#06070b;color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
-button,input{font:inherit}button{cursor:pointer}
-header{height:76px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #202431;position:sticky;top:0;z-index:100;background:rgba(6,7,11,.94);backdrop-filter:blur(18px)}
-.logo{font-size:43px;font-weight:900;letter-spacing:-5px}
-.header-right{display:flex;gap:9px;align-items:center}
-.credits{background:#11151e;border:1px solid #303747;border-radius:14px;padding:10px 14px;color:#a9b0c1;font-weight:800}
-.credits b{color:#fff}
-.header-btn,.primary{background:#fff;color:#08090d;border:0;border-radius:14px;padding:12px 18px;font-weight:800}
-.nav{display:flex;gap:8px;padding:10px 5%;border-bottom:1px solid #181c26;overflow:auto;position:sticky;top:76px;z-index:90;background:rgba(6,7,11,.92);backdrop-filter:blur(18px)}
-.nav button,.filter{white-space:nowrap;border:1px solid #292f3d;background:#0d1016;color:#8f97aa;border-radius:25px;padding:9px 16px}
-.nav button.active,.filter.active{background:#fff;color:#08090d;border-color:#fff}
-.hero{text-align:center;padding:65px 20px 40px}
-.badge{display:inline-block;border:1px solid #303746;border-radius:40px;padding:12px 21px;color:#b9c0d1;font-size:13px;letter-spacing:1px;margin-bottom:28px}
-.hero h1{font-size:clamp(45px,8vw,78px);line-height:.95;letter-spacing:-5px;margin-bottom:20px}
-.hero h1 span{color:#9b9cff}.hero p{max-width:700px;margin:auto;color:#929aad;font-size:18px;line-height:1.6}
-.container{width:min(1080px,92%);margin:auto}
-.section-head{display:flex;justify-content:space-between;align-items:end;margin:28px 0 18px}
-.section-head h2{font-size:27px}.section-head p{color:#747d91;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding-bottom:60px}
-.card{background:#11141d;border:1px solid #292f3d;border-radius:25px;padding:15px;overflow:hidden;transition:.2s}
-.card:hover{transform:translateY(-3px);border-color:#454d61}
-.media{height:235px;border-radius:20px;background:radial-gradient(circle,#1c2232,#0b0e14 70%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.media:before{content:"";position:absolute;width:180px;height:180px;border:2px solid #343c51;border-radius:50%}
-.icon{font-size:70px;z-index:2}
-.live-tag{position:absolute;left:12px;top:12px;background:#171b25;border:1px solid #303747;padding:7px 10px;border-radius:20px;color:#ff7771;font-size:11px;font-weight:900}
-.heat{position:absolute;right:12px;top:12px;background:#171b25;border:1px solid #303747;padding:7px 10px;border-radius:20px;color:#a5a6ff;font-size:11px;font-weight:800}
-.card-body{padding:17px 3px 2px}.title{font-size:22px;font-weight:900;margin-bottom:8px}
-.meta{display:flex;justify-content:space-between;color:#858da1;font-size:13px;margin-bottom:13px}
-.price{font-size:31px;font-weight:900;margin-bottom:13px}.price small{font-size:13px;color:#747d91}
-.card-actions{display:grid;grid-template-columns:1fr 48px;gap:8px}.bid{background:#fff;color:#08090d;border:0;border-radius:14px;padding:14px;font-weight:900}.fav{background:#171b24;color:#fff;border:1px solid #303747;border-radius:14px;font-size:20px}
-.activity{background:#0d1017;border:1px solid #252b38;border-radius:22px;padding:18px;margin:8px 0 65px}
-.activity-head{display:flex;justify-content:space-between;margin-bottom:12px}.activity-head strong{font-size:18px}.activity-head span{color:#55e6a5;font-size:12px}
-.feed{display:flex;gap:10px;overflow:auto}.event{min-width:210px;background:#11141d;border:1px solid #292f3d;border-radius:16px;padding:13px;color:#a0a8ba;font-size:12px;line-height:1.5}.event b{color:#fff}
-.overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.76);backdrop-filter:blur(10px);padding:18px;align-items:center;justify-content:center}.overlay.show{display:flex}
-.modal{width:min(520px,100%);max-height:90vh;overflow:auto;background:#11141d;border:1px solid #303747;border-radius:25px;padding:23px}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.modal-head h2{font-size:24px}
-.close{background:#191d26;color:#fff;border:1px solid #303747;width:40px;height:40px;border-radius:12px}
-.detail-icon{height:210px;border-radius:19px;background:radial-gradient(circle,#202638,#090b10);display:flex;align-items:center;justify-content:center;font-size:90px;margin-bottom:18px}
-.detail-price{font-size:40px;font-weight:900;margin:12px 0}.row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #252b37;color:#858da1}.row strong{color:#fff}
-.big-btn{width:100%;padding:16px;background:#fff;color:#08090d;border:0;border-radius:15px;font-weight:900;margin-top:18px}
-.progress{height:8px;background:#202531;border-radius:20px;overflow:hidden;margin:12px 0 18px}.progress i{display:block;height:100%;width:65%;background:#9b9cff}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}.stat{background:#080a0f;border:1px solid #303747;border-radius:16px;padding:14px;text-align:center}.stat b{display:block;font-size:22px}.stat span{font-size:10px;color:#747d91;letter-spacing:1px}
-.rank{display:flex;justify-content:space-between;padding:14px;border-bottom:1px solid #252b37}.rank small{color:#747d91}.rank b{color:#fff}
-.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,120px);z-index:1000;background:#fff;color:#08090d;padding:13px 19px;border-radius:14px;font-weight:900;transition:.3s;box-shadow:0 15px 50px #000}.toast.show{transform:translate(-50%,0)}
-.footer{text-align:center;border-top:1px solid #202431;padding:40px 20px;color:#626a7d;font-size:12px;line-height:1.8}
-@media(max-width:700px){header{padding:0 18px}.logo{font-size:39px}.credits{font-size:12px;padding:9px}.header-btn{padding:10px 12px}.nav{top:76px;padding:9px 18px}.grid{grid-template-columns:1fr}.hero{padding-top:55px}.hero h1{letter-spacing:-3px}.media{height:260px}.stat-grid{grid-template-columns:1fr 1fr 1fr}}
+:root{--bg:#06070b;--panel:#0d1018;--line:#252b3a;--muted:#8e97ad;--text:#f5f7fb;--accent:#8f83ff}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input{font:inherit} button{cursor:pointer}
+header{height:76px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(6,7,11,.94);backdrop-filter:blur(14px);z-index:10}
+.logo{font-size:43px;font-weight:900;letter-spacing:-4px}
+.credits{border:1px solid var(--line);background:#10141e;border-radius:30px;padding:12px 20px;font-weight:700}
+.nav{display:flex;gap:10px;padding:16px 5%;overflow:auto;border-bottom:1px solid var(--line)}
+.nav button,.filter{white-space:nowrap;border:1px solid var(--line);background:#0b0f17;color:#98a1b6;border-radius:28px;padding:14px 22px}
+.nav button.active,.filter.active{background:#fff;color:#08090c}
+.hero{text-align:center;padding:60px 20px 45px}
+.badge{display:inline-block;border:1px solid #30384d;border-radius:30px;padding:13px 28px;color:#b8c0d2;letter-spacing:2px}
+.hero h1{font-size:clamp(44px,8vw,82px);line-height:.98;margin:42px auto 25px;max-width:850px;letter-spacing:-4px}
+.hero h1 span{color:var(--accent)}
+.hero p{max-width:700px;margin:auto;color:var(--muted);font-size:20px;line-height:1.7}
+.wrap{width:min(1080px,92%);margin:auto;padding-bottom:70px}
+.section-title{font-size:34px;margin:20px 0 5px}.sub{color:var(--muted);margin-bottom:22px}
+.filters{display:flex;gap:10px;overflow:auto;padding-bottom:18px}
+.vaults{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px}
+.card h3{font-size:21px;margin-bottom:10px}.meta{color:var(--muted);font-size:14px}
+.card-row{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:20px}
+.primary{border:0;border-radius:14px;background:#fff;color:#08090c;padding:12px 18px;font-weight:800}
+.ghost{border:1px solid var(--line);background:#111622;color:#dce1ec;border-radius:14px;padding:11px 16px}
+.empty{padding:35px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}
+.modal.show{display:flex}.box{width:min(560px,100%);background:#0d1018;border:1px solid var(--line);border-radius:24px;padding:24px}
+.box h2{margin-bottom:18px}.box input{width:100%;background:#080b11;color:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:8px 0 14px}
+.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:12px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#fff;color:#08090c;padding:13px 18px;border-radius:14px;display:none;z-index:50;font-weight:700}
+small.status{color:#7e8aa4}
+@media(max-width:600px){header{padding:0 18px}.logo{font-size:36px}.credits{padding:10px 13px}.hero{padding-top:42px}.hero h1{letter-spacing:-2px}}
 </style>
 </head>
 <body>
+
 <header>
   <div class="logo">loff</div>
-  <div class="header-right">
-    <div class="credits">◈ <b id="creditTop">100</b> Credits</div>
-    <button class="header-btn" onclick="openModal('profileModal')">Profil</button>
-  </div>
+  <div class="credits">◇ <span id="creditCount">100</span> Credits</div>
 </header>
 
 <nav class="nav">
-  <button class="active" onclick="home(this)">Ana Sayfa</button>
-  <button onclick="goVaults()">Vault'lar</button>
-  <button onclick="openModal('leaderModal')">🏆 Liderlik</button>
-  <button onclick="openModal('howModal')">Nasıl Çalışır?</button>
+  <button class="active" data-view="home">Ana Sayfa</button>
+  <button data-view="vaults">Vault'lar</button>
+  <button data-view="leaderboard">🏆 Liderlik</button>
+  <button data-view="how">Nasıl Çalışır?</button>
 </nav>
 
-<section class="hero">
-  <div class="badge">V4.0 • CORE ENGINE</div>
-  <h1>Kasanın içinde<br><span>ne var?</span></h1>
-  <p>Merak et. Tahmin et. Rekabet et. Vault kapanmadan hamleni yap ve LOFF deneyiminin bir parçası ol.</p>
-</section>
+<main id="homeView">
+  <section class="hero">
+    <div class="badge">V4.0 • CORE ENGINE</div>
+    <h1>Kasanın içinde<br><span>ne var?</span></h1>
+    <p>Merak et. Tahmin et. Rekabet et. Vault kapanmadan hamleni yap ve LOFF deneyiminin bir parçası ol.</p>
+  </section>
 
-<main class="container">
-  <div class="section-head">
-    <div><h2>Canlı Vault'lar</h2><p>Her vault farklı bir mücadele.</p></div>
-  </div>
-  <div id="filters" style="display:flex;gap:7px;overflow:auto;margin-bottom:18px">
-    <button class="filter active" onclick="filterVaults('all',this)">Tümü</button>
-    <button class="filter" onclick="filterVaults('tech',this)">Teknoloji</button>
-    <button class="filter" onclick="filterVaults('gaming',this)">Gaming</button>
-    <button class="filter" onclick="filterVaults('fashion',this)">Moda</button>
-    <button class="filter" onclick="filterVaults('mystery',this)">Mystery</button>
-  </div>
-  <section id="grid" class="grid"></section>
-
-  <section class="activity">
-    <div class="activity-head"><strong>⚡ Canlı Aktivite</strong><span>● AKTİF</span></div>
-    <div id="feed" class="feed"></div>
+  <section class="wrap">
+    <h2 class="section-title">Canlı Vault'lar</h2>
+    <p class="sub">Her vault farklı bir mücadele.</p>
+    <div class="filters">
+      <button class="filter active" data-cat="all">Tümü</button>
+      <button class="filter" data-cat="Teknoloji">Teknoloji</button>
+      <button class="filter" data-cat="Gaming">Gaming</button>
+      <button class="filter" data-cat="Moda">Moda</button>
+      <button class="filter" data-cat="Diğer">Diğer</button>
+    </div>
+    <div id="vaults" class="vaults"><div class="empty">Vault'lar yükleniyor…</div></div>
   </section>
 </main>
 
-<footer class="footer"><b>LOFF — LIVE VAULT V3.2</b><br>Demo/prototip sürümüdür. Gerçek para veya ödeme işlemi içermez.</footer>
+<section id="vaultsView" class="wrap" style="display:none">
+  <h2 class="section-title">Vault'lar</h2><p class="sub">LOFF üzerindeki açık mücadeleler.</p>
+  <div id="allVaults" class="vaults"></div>
+</section>
 
-<!-- DETAIL -->
-<div class="overlay" id="detailModal"><div class="modal">
-  <div class="modal-head"><h2 id="dTitle">Vault</h2><button class="close" onclick="closeAll()">×</button></div>
-  <div class="detail-icon" id="dIcon">🔒</div>
-  <p id="dDesc" style="color:#8d96aa;line-height:1.6"></p>
-  <div class="detail-price">◈ <span id="dPrice">0</span> <small style="font-size:14px;color:#7d8699">Credits</small></div>
-  <div class="row"><span>Vault</span><strong id="dVault">#000</strong></div>
-  <div class="row"><span>Katılımcı</span><strong id="dPlayers">0</strong></div>
-  <div class="row"><span>Kalan süre</span><strong id="dTime">00:00</strong></div>
-  <div class="row"><span>Seri bonusu</span><strong id="dStreak">+0 XP</strong></div>
-  <button class="big-btn" onclick="placeBid()">HAMLE YAP — +1 CREDIT</button>
-</div></div>
+<section id="leaderboardView" class="wrap" style="display:none">
+  <h2 class="section-title">🏆 Liderlik</h2>
+  <p class="sub">En yüksek skorlar.</p>
+  <div id="leaders" class="vaults"><div class="empty">Liderlik yükleniyor…</div></div>
+</section>
 
-<!-- PROFILE -->
-<div class="overlay" id="profileModal"><div class="modal">
-  <div class="modal-head"><h2>LOFF Profil</h2><button class="close" onclick="closeAll()">×</button></div>
-  <div style="text-align:center"><div class="detail-icon" style="height:130px;font-size:60px">👤</div><h2 id="name">LOFF Explorer</h2><p style="color:#7e879a;margin-top:5px">Level <span id="level">1</span> • <span id="xp">0</span> XP</p></div>
-  <div class="progress"><i id="xpbar"></i></div>
-  <div class="stat-grid"><div class="stat"><b id="creditProfile">100</b><span>CREDITS</span></div><div class="stat"><b id="wins">0</b><span>KAZANMA</span></div><div class="stat"><b id="streak">0</b><span>SERİ</span></div></div>
-  <div class="row"><span>🏅 Rozet</span><strong id="badge">Yeni Kaşif</strong></div>
-  <div class="row"><span>🔥 En uzun seri</span><strong id="bestStreak">0</strong></div>
-  <button class="big-btn" onclick="resetDemo()">Demo hesabını sıfırla</button>
-</div></div>
+<section id="howView" class="wrap" style="display:none">
+  <h2 class="section-title">Nasıl Çalışır?</h2>
+  <div class="card" style="line-height:1.8">
+    <p><b>1.</b> Bir Vault seç.</p><br>
+    <p><b>2.</b> İçindeki gizli ürünü/tahmini keşfet.</p><br>
+    <p><b>3.</b> Teklifini ver. Son 10 saniyede teklif gelirse sayaç uzar.</p><br>
+    <p><b>4.</b> Kazanan kullanıcı Vault'u kazanır.</p>
+  </div>
+</section>
 
-<!-- LEADER -->
-<div class="overlay" id="leaderModal"><div class="modal">
-  <div class="modal-head"><h2>🏆 Liderlik Tablosu</h2><button class="close" onclick="closeAll()">×</button></div>
-  <div class="rank"><span>🥇 <b>VaultHunter</b><br><small>Level 18 • 12 galibiyet</small></span><b>2.840 XP</b></div>
-  <div class="rank"><span>🥈 <b>MysteryFox</b><br><small>Level 15 • 9 galibiyet</small></span><b>2.410 XP</b></div>
-  <div class="rank"><span>🥉 <b>NightBidder</b><br><small>Level 13 • 8 galibiyet</small></span><b>2.050 XP</b></div>
-  <div class="rank"><span>⚡ <b id="leaderYou">Sen</b><br><small>Level <span id="leaderLevel">1</span></small></span><b id="leaderXP">0 XP</b></div>
-</div></div>
+<div id="modal" class="modal">
+  <div class="box">
+    <h2 id="modalTitle">Teklif Ver</h2>
+    <p class="meta" id="modalInfo"></p>
+    <label>Teklif miktarı</label>
+    <input id="bidAmount" type="number" min="1" step="1" placeholder="Örn. 25">
+    <div class="actions">
+      <button class="ghost" id="closeModal">Vazgeç</button>
+      <button class="primary" id="submitBid">Teklifi Gönder</button>
+    </div>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
 
-<!-- HOW -->
-<div class="overlay" id="howModal"><div class="modal">
-  <div class="modal-head"><h2>LOFF nasıl çalışır?</h2><button class="close" onclick="closeAll()">×</button></div>
-  <div class="row"><span>01</span><strong>Vault seç</strong></div>
-  <div class="row"><span>02</span><strong>İçeriğini tahmin et</strong></div>
-  <div class="row"><span>03</span><strong>Credit ile hamle yap</strong></div>
-  <div class="row"><span>04</span><strong>Serini ve XP'ni artır</strong></div>
-  <div class="row"><span>05</span><strong>Vault kapanınca sonuç açıklanır</strong></div>
-  <p style="color:#7f889b;line-height:1.6;margin-top:20px">V3.2'de amaç yalnızca teklif vermek değil; tekrar gelmeyi, risk almayı ve rekabet etmeyi sağlayan bir oyun döngüsü oluşturmaktır.</p>
-</div></div>
-
-<div class="toast" id="toast"></div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const vaults=[
-{id:1,title:"Mystery Tech",cat:"tech",icon:"📱",price:35,players:18,time:820,desc:"Teknoloji kategorisinden gizli bir ürün. Sonuç kasa kapanınca açıklanır."},
-{id:2,title:"Mystery Gaming",cat:"gaming",icon:"🎮",price:50,players:26,time:1240,desc:"Gaming dünyasından sürpriz bir değer. Rekabet giderek artıyor."},
-{id:3,title:"Mystery Fashion",cat:"fashion",icon:"👟",price:64,players:31,time:640,desc:"Sınırlı veya özel bir moda ürünü olabilir."},
-{id:4,title:"Mystery Camera",cat:"mystery",icon:"📷",price:78,players:14,time:1510,desc:"Fotoğraf dünyasından gizemli bir ürün."},
-{id:5,title:"Mystery Audio",cat:"tech",icon:"🎧",price:43,players:21,time:930,desc:"Ses teknolojileri kategorisinden gizli bir ürün."},
-{id:6,title:"Mystery Luxury",cat:"fashion",icon:"⌚",price:120,players:39,time:1980,desc:"Premium kategoriden özel bir ürün içeriyor olabilir."}
-];
-let state=JSON.parse(localStorage.getItem("loffV32")||'{"credits":100,"xp":0,"wins":0,"streak":0,"bestStreak":0,"bids":0}');
-let currentFilter="all",selected=null;
-const names=["Alex","Nova","Shadow","Mira","Leo","Kai","Luna","Max"];
-function save(){localStorage.setItem("loffV32",JSON.stringify(state));updateProfile()}
-function updateProfile(){
-let level=Math.floor(state.xp/100)+1;
-document.getElementById("creditTop").textContent=state.credits;
-document.getElementById("creditProfile").textContent=state.credits;
-document.getElementById("xp").textContent=state.xp;
-document.getElementById("level").textContent=level;
-document.getElementById("wins").textContent=state.wins;
-document.getElementById("streak").textContent=state.streak;
-document.getElementById("bestStreak").textContent=state.bestStreak;
-document.getElementById("xpbar").style.width=(state.xp%100)+"%";
-document.getElementById("badge").textContent=level>=10?"Vault Legend":level>=5?"Vault Hunter":"Yeni Kaşif";
-document.getElementById("leaderLevel").textContent=level;
-document.getElementById("leaderXP").textContent=state.xp+" XP";
+/* LOFF — GitHub Pages + Supabase */
+const SUPABASE_URL = "https://tswafgokbqzasiuxhysh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_mTnOZYQs7_kd1GWiw2jKDQ_99MyYo_t";
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let vaultData = [];
+let selectedVault = null;
+let activeCategory = "all";
+
+const $ = id => document.getElementById(id);
+function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2600)}
+function val(o, names, fallback=""){
+  for(const n of names){ if(o && o[n]!==undefined && o[n]!==null && o[n]!=="") return o[n]; }
+  return fallback;
 }
-function format(s){let m=Math.floor(s/60),x=s%60;return String(m).padStart(2,"0")+":"+String(x).padStart(2,"0")}
-function render(){
-let list=vaults.filter(v=>currentFilter==="all"||v.cat===currentFilter);
-document.getElementById("grid").innerHTML=list.map(v=>`
-<article class="card">
-<div class="media"><div class="live-tag">● LIVE</div><div class="heat">🔥 ${Math.min(99,Math.floor(v.players*2.1))}% HEAT</div><div class="icon">${v.icon}</div></div>
-<div class="card-body"><div class="title">${v.title}</div><div class="meta"><span>Vault #${String(v.id).padStart(3,"0")}</span><span>👥 ${v.players} kişi</span></div><div class="price">◈ ${v.price}<small> Credits</small></div>
-<div class="card-actions"><button class="bid" onclick="openDetail(${v.id})">İNCELE & HAMLE YAP</button><button class="fav" onclick="toast('Favori özelliği yakında')">♡</button></div></div></article>`).join("");
+function money(v){ const n=Number(v||0); return Number.isFinite(n) ? n.toLocaleString("tr-TR") : v; }
+
+function renderVaults(target, data){
+  if(!data.length){target.innerHTML='<div class="empty">Şu anda gösterilecek Vault bulunamadı.</div>';return}
+  target.innerHTML=data.map(v=>{
+    const id=val(v,["id","vault_id"],"");
+    const title=val(v,["baslik","başlık","title","name"],"LOFF Vault");
+    const cat=val(v,["kategori","category"],"Diğer");
+    const current=val(v,["mevcut_teklif","current_bid","current_bid_amount","fiyat","price"],0);
+    const end=val(v,["bitis_zamani","bitiş_zamanı","end_time","ends_at"],"");
+    return `<article class="card">
+      <h3>${escapeHtml(title)}</h3>
+      <div class="meta">${escapeHtml(cat)} · ${end?escapeHtml(new Date(end).toLocaleString("tr-TR")):"Canlı"}</div>
+      <div class="card-row"><strong>${money(current)} Credits</strong><button class="primary" onclick="openBid(${JSON.stringify(String(id))})">Teklif Ver</button></div>
+    </article>`
+  }).join("");
 }
-function openDetail(id){selected=vaults.find(v=>v.id===id);if(!selected)return;
-dTitle.textContent=selected.title;dIcon.textContent=selected.icon;dDesc.textContent=selected.desc;dPrice.textContent=selected.price;dVault.textContent="#"+String(selected.id).padStart(3,"0");dPlayers.textContent=selected.players;dTime.textContent=format(selected.time);dStreak.textContent="+"+(state.streak*10+10)+" XP";openModal("detailModal")}
-function placeBid(){
-if(!selected)return;
-if(state.credits<1){toast("Credit bakiyen yetersiz.");return}
-state.credits--;selected.price++;selected.players++;state.bids++;state.xp+=10;
-state.streak++;if(state.streak>state.bestStreak)state.bestStreak=state.streak;
-dPrice.textContent=selected.price;dPlayers.textContent=selected.players;dStreak.textContent="+"+(state.streak*10+10)+" XP";
-save();addEvent("Sen",selected.title,selected.price);toast("Hamle yapıldı! +10 XP • Seri "+state.streak);
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+
+async function loadVaults(){
+  const {data,error}=await db.from("acik artirmalar").select("*");
+  if(error){
+    $("vaults").innerHTML='<div class="empty">Supabase bağlantısı kuruldu ancak “açık artırmalar” tablosu okunamadı.<br><small class="status">'+escapeHtml(error.message)+'</small></div>';
+    $("allVaults").innerHTML=$("vaults").innerHTML;
+    return;
+  }
+  vaultData=data||[];
+  applyFilter();
 }
-function addEvent(user,v,p){let e=document.createElement("div");e.className="event";e.innerHTML=`<b>${user}</b> ${v} için hamle yaptı.<br>Yeni seviye: <b>◈ ${p} Credits</b>`;feed.prepend(e);while(feed.children.length>5)feed.lastChild.remove()}
-function seedFeed(){["Mira","Shadow","Nova","Kai","Luna"].forEach((n,i)=>addEvent(n,vaults[i].title,vaults[i].price))}
-function filterVaults(x,b){currentFilter=x;document.querySelectorAll(".filter").forEach(a=>a.classList.remove("active"));b.classList.add("active");render()}
-function openModal(id){closeAll();document.getElementById(id).classList.add("show")}
-function closeAll(){document.querySelectorAll(".overlay").forEach(x=>x.classList.remove("show"))}
-document.querySelectorAll(".overlay").forEach(x=>x.onclick=e=>{if(e.target===x)closeAll()});
-function goVaults(){document.getElementById("grid").scrollIntoView({behavior:"smooth"})}
-function home(){closeAll();scrollTo({top:0,behavior:"smooth"})}
-function toast(msg){let t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove("show"),2200)}
-function resetDemo(){state={credits:100,xp:0,wins:0,streak:0,bestStreak:0,bids:0};save();toast("Demo hesabı sıfırlandı.")}
-setInterval(()=>{vaults.forEach(v=>{if(v.time>0)v.time--});if(selected){dTime.textContent=format(selected.time)}render()},1000);
-seedFeed();render();updateProfile();
+function applyFilter(){
+  const filtered=activeCategory==="all"?vaultData:vaultData.filter(v=>String(val(v,["kategori","category"],"Diğer"))===activeCategory);
+  renderVaults($("vaults"),filtered);
+  renderVaults($("allVaults"),filtered);
+}
+
+async function loadCredits(){
+  try{
+    const {data:{user}}=await db.auth.getUser();
+    if(!user)return;
+    const {data}=await db.from("profiller").select("*").eq("id",user.id).maybeSingle();
+    if(data) $("creditCount").textContent=val(data,["credits","kredi","credit"],100);
+  }catch(e){}
+}
+
+async function loadLeaders(){
+  const box=$("leaders");
+  const {data,error}=await db.from("profiller").select("*").limit(10);
+  if(error||!data?.length){box.innerHTML='<div class="empty">Liderlik verisi henüz bulunamadı.</div>';return}
+  box.innerHTML=data.map((p,i)=>{
+    const name=val(p,["kullanici_adi","kullanıcı_adi","username","ad","name"],"LOFF Kullanıcısı");
+    const score=val(p,["skor","score","credits","kredi"],0);
+    return `<div class="card"><div class="card-row"><strong>#${i+1} · ${escapeHtml(name)}</strong><strong>${money(score)}</strong></div></div>`;
+  }).join("");
+}
+
+window.openBid=function(id){
+  selectedVault=vaultData.find(v=>String(val(v,["id","vault_id"],""))===String(id));
+  if(!selectedVault){toast("Vault bulunamadı.");return}
+  $("modalTitle").textContent="Teklif Ver";
+  $("modalInfo").textContent=val(selectedVault,["baslik","başlık","title","name"],"LOFF Vault");
+  $("bidAmount").value="";
+  $("modal").classList.add("show");
+  setTimeout(()=>$("bidAmount").focus(),100);
+}
+
+async function submitBid(){
+  if(!selectedVault)return;
+  const amount=Number($("bidAmount").value);
+  if(!amount || amount<=0){toast("Geçerli bir teklif gir.");return}
+  const vaultId=val(selectedVault,["id","vault_id"],null);
+  const {data:{user}}=await db.auth.getUser();
+  if(!user){toast("Teklif vermek için giriş yapmalısın.");return}
+
+  /* Teklifler tablosundaki yaygın alan adlarını destekleyen temel kayıt.
+     Veritabanında RLS açıksa politika izin vermelidir. */
+  const payload={
+    kullanici_id:user.id,
+    user_id:user.id,
+    acik_artirma_id:vaultId,
+    auction_id:vaultId,
+    teklif:amount,
+    amount:amount,
+    miktar:amount
+  };
+
+  let result=await db.from("teklifler").insert(payload);
+  if(result.error){
+    /* Eğer tablo şeman farklıysa ilk hatayı kullanıcıya açıkça göster. */
+    toast("Teklif kaydedilemedi: "+result.error.message);
+    return;
+  }
+
+  $("modal").classList.remove("show");
+  toast("Teklifin gönderildi ✓");
+  await loadVaults();
+}
+
+document.querySelectorAll(".nav button").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+    btn.classList.add("active");
+    ["home","vaults","leaderboard","how"].forEach(v=>$(v+"View").style.display="none");
+    $(btn.dataset.view+"View").style.display="block";
+    if(btn.dataset.view==="leaderboard")loadLeaders();
+  });
+});
+document.querySelectorAll(".filter").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
+  activeCategory=btn.dataset.cat;applyFilter();
+}));
+$("closeModal").onclick=()=>$("modal").classList.remove("show");
+$("modal").onclick=e=>{if(e.target.id==="modal")$("modal").classList.remove("show")};
+$("submitBid").onclick=submitBid;
+
+loadVaults();
+loadCredits();
 </script>
 </body>
 </html>
