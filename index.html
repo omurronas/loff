@@ -9,7 +9,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#06070b;--panel:#0d1018;--line:#252b3a;--muted:#8e97ad;--text:#f5f7fb;--accent:#8f83ff}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
-button,input{font:inherit} button{cursor:pointer}
+button,input{font:inherit}button{cursor:pointer}
 header{height:76px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(6,7,11,.94);backdrop-filter:blur(14px);z-index:10}
 .logo{font-size:43px;font-weight:900;letter-spacing:-4px}
 .credits{border:1px solid var(--line);background:#10141e;border-radius:30px;padding:12px 20px;font-weight:700}
@@ -76,7 +76,8 @@ small.status{color:#7e8aa4}
 </main>
 
 <section id="vaultsView" class="wrap" style="display:none">
-  <h2 class="section-title">Vault'lar</h2><p class="sub">LOFF üzerindeki açık mücadeleler.</p>
+  <h2 class="section-title">Vault'lar</h2>
+  <p class="sub">LOFF üzerindeki açık mücadeleler.</p>
   <div id="allVaults" class="vaults"></div>
 </section>
 
@@ -108,13 +109,19 @@ small.status{color:#7e8aa4}
     </div>
   </div>
 </div>
+
 <div id="toast" class="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* LOFF — GitHub Pages + Supabase */
+/* =========================================================
+   LOFF — GitHub Pages + Supabase
+   Bu dosya komple index.html olarak kullanılacaktır.
+   ========================================================= */
+
 const SUPABASE_URL = "https://tswafgokbqzasiuxhysh.supabase.co";
 const SUPABASE_KEY = "sb_publishable_mTnOZYQs7_kd1GWiw2jKDQ_99MyYo_t";
+
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -123,100 +130,194 @@ let selectedVault = null;
 let activeCategory = "all";
 
 const $ = id => document.getElementById(id);
-function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2600)}
-function val(o, names, fallback=""){
-  for(const n of names){ if(o && o[n]!==undefined && o[n]!==null && o[n]!=="") return o[n]; }
+
+function toast(msg){
+  $("toast").textContent = msg;
+  $("toast").style.display = "block";
+  setTimeout(() => $("toast").style.display = "none", 2600);
+}
+
+function val(o,names,fallback=""){
+  for(const n of names){
+    if(o && o[n] !== undefined && o[n] !== null && o[n] !== "")
+      return o[n];
+  }
   return fallback;
 }
-function money(v){ const n=Number(v||0); return Number.isFinite(n) ? n.toLocaleString("tr-TR") : v; }
 
-function renderVaults(target, data){
-  if(!data.length){target.innerHTML='<div class="empty">Şu anda gösterilecek Vault bulunamadı.</div>';return}
-  target.innerHTML=data.map(v=>{
-    const id=val(v,["id","vault_id"],"");
-    const title=val(v,["baslik","başlık","title","name"],"LOFF Vault");
-    const cat=val(v,["kategori","category"],"Diğer");
-    const current=val(v,["mevcut_teklif","current_bid","current_bid_amount","fiyat","price"],0);
-    const end=val(v,["bitis_zamani","bitiş_zamanı","end_time","ends_at"],"");
-    return `<article class="card">
-      <h3>${escapeHtml(title)}</h3>
-      <div class="meta">${escapeHtml(cat)} · ${end?escapeHtml(new Date(end).toLocaleString("tr-TR")):"Canlı"}</div>
-      <div class="card-row"><strong>${money(current)} Credits</strong><button class="primary" onclick="openBid(${JSON.stringify(String(id))})">Teklif Ver</button></div>
-    </article>`
-  }).join("");
+function money(v){
+  const n = Number(v || 0);
+  return Number.isFinite(n) ? n.toLocaleString("tr-TR") : v;
 }
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
 
-async function loadVaults(){
-  const {data,error}=await db.from("acik artirmalar").select("*");
-  if(error){
-    $("vaults").innerHTML='<div class="empty">Supabase bağlantısı kuruldu ancak “açık artırmalar” tablosu okunamadı.<br><small class="status">'+escapeHtml(error.message)+'</small></div>';
-    $("allVaults").innerHTML=$("vaults").innerHTML;
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g,m => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[m]));
+}
+
+function renderVaults(target,data){
+  if(!data.length){
+    target.innerHTML = '<div class="empty">Şu anda gösterilecek Vault bulunamadı.</div>';
     return;
   }
-  vaultData=data||[];
+
+  target.innerHTML = data.map(v => {
+    const id = val(v,["id","vault_id"],"");
+    const title = val(v,["baslik","başlık","title","name"],"LOFF Vault");
+    const cat = val(v,["kategori","category"],"Diğer");
+    const current = val(v,["mevcut_teklif","current_bid","current_bid_amount","fiyat","price"],0);
+    const end = val(v,["bitis_zamani","bitiş_zamanı","end_time","ends_at"],"");
+
+    return `<article class="card">
+      <h3>${escapeHtml(title)}</h3>
+      <div class="meta">${escapeHtml(cat)} · ${end ? escapeHtml(new Date(end).toLocaleString("tr-TR")) : "Canlı"}</div>
+      <div class="card-row">
+        <strong>${money(current)} Credits</strong>
+        <button class="primary" onclick="openBid(${JSON.stringify(String(id))})">Teklif Ver</button>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+async function loadVaults(){
+  /*
+    Supabase tablosunun adı önceki kurulumdaki gibi
+    "acik artirmalar" olarak bırakıldı.
+  */
+  const {data,error} = await db.from("acik artirmalar").select("*");
+
+  if(error){
+    const msg =
+      'Supabase bağlantısı kuruldu ancak “açık artırmalar” tablosu okunamadı.' +
+      '<br><small class="status">' + escapeHtml(error.message) + '</small>';
+
+    $("vaults").innerHTML = '<div class="empty">' + msg + '</div>';
+    $("allVaults").innerHTML = $("vaults").innerHTML;
+    return;
+  }
+
+  vaultData = data || [];
   applyFilter();
 }
+
 function applyFilter(){
-  const filtered=activeCategory==="all"?vaultData:vaultData.filter(v=>String(val(v,["kategori","category"],"Diğer"))===activeCategory);
+  const filtered =
+    activeCategory === "all"
+      ? vaultData
+      : vaultData.filter(v =>
+          String(val(v,["kategori","category"],"Diğer")) === activeCategory
+        );
+
   renderVaults($("vaults"),filtered);
   renderVaults($("allVaults"),filtered);
 }
 
 async function loadCredits(){
   try{
-    const {data:{user}}=await db.auth.getUser();
-    if(!user)return;
-    const {data}=await db.from("profiller").select("*").eq("id",user.id).maybeSingle();
-    if(data) $("creditCount").textContent=val(data,["credits","kredi","credit"],100);
+    const {data:{user}} = await db.auth.getUser();
+    if(!user) return;
+
+    const {data} =
+      await db.from("profiller").select("*").eq("id",user.id).maybeSingle();
+
+    if(data){
+      $("creditCount").textContent =
+        val(data,["credits","kredi","credit"],100);
+    }
   }catch(e){}
 }
 
 async function loadLeaders(){
-  const box=$("leaders");
-  const {data,error}=await db.from("profiller").select("*").limit(10);
-  if(error||!data?.length){box.innerHTML='<div class="empty">Liderlik verisi henüz bulunamadı.</div>';return}
-  box.innerHTML=data.map((p,i)=>{
-    const name=val(p,["kullanici_adi","kullanıcı_adi","username","ad","name"],"LOFF Kullanıcısı");
-    const score=val(p,["skor","score","credits","kredi"],0);
-    return `<div class="card"><div class="card-row"><strong>#${i+1} · ${escapeHtml(name)}</strong><strong>${money(score)}</strong></div></div>`;
+  const box = $("leaders");
+
+  const {data,error} =
+    await db.from("profiller").select("*").limit(10);
+
+  if(error || !data || !data.length){
+    box.innerHTML =
+      '<div class="empty">Liderlik verisi henüz bulunamadı.</div>';
+    return;
+  }
+
+  box.innerHTML = data.map((p,i) => {
+    const name =
+      val(p,["kullanici_adi","kullanıcı_adi","username","ad","name"],"LOFF Kullanıcısı");
+
+    const score =
+      val(p,["skor","score","credits","kredi"],0);
+
+    return `<div class="card">
+      <div class="card-row">
+        <strong>#${i+1} · ${escapeHtml(name)}</strong>
+        <strong>${money(score)}</strong>
+      </div>
+    </div>`;
   }).join("");
 }
 
-window.openBid=function(id){
-  selectedVault=vaultData.find(v=>String(val(v,["id","vault_id"],""))===String(id));
-  if(!selectedVault){toast("Vault bulunamadı.");return}
-  $("modalTitle").textContent="Teklif Ver";
-  $("modalInfo").textContent=val(selectedVault,["baslik","başlık","title","name"],"LOFF Vault");
-  $("bidAmount").value="";
+window.openBid = function(id){
+  selectedVault =
+    vaultData.find(v =>
+      String(val(v,["id","vault_id"],"")) === String(id)
+    );
+
+  if(!selectedVault){
+    toast("Vault bulunamadı.");
+    return;
+  }
+
+  $("modalTitle").textContent = "Teklif Ver";
+  $("modalInfo").textContent =
+    val(selectedVault,["baslik","başlık","title","name"],"LOFF Vault");
+
+  $("bidAmount").value = "";
   $("modal").classList.add("show");
-  setTimeout(()=>$("bidAmount").focus(),100);
-}
+
+  setTimeout(() => $("bidAmount").focus(),100);
+};
 
 async function submitBid(){
-  if(!selectedVault)return;
-  const amount=Number($("bidAmount").value);
-  if(!amount || amount<=0){toast("Geçerli bir teklif gir.");return}
-  const vaultId=val(selectedVault,["id","vault_id"],null);
-  const {data:{user}}=await db.auth.getUser();
-  if(!user){toast("Teklif vermek için giriş yapmalısın.");return}
+  if(!selectedVault) return;
 
-  /* Teklifler tablosundaki yaygın alan adlarını destekleyen temel kayıt.
-     Veritabanında RLS açıksa politika izin vermelidir. */
-  const payload={
+  const amount = Number($("bidAmount").value);
+
+  if(!amount || amount <= 0){
+    toast("Geçerli bir teklif gir.");
+    return;
+  }
+
+  const vaultId =
+    val(selectedVault,["id","vault_id"],null);
+
+  const {data:{user}} = await db.auth.getUser();
+
+  if(!user){
+    toast("Teklif vermek için giriş yapmalısın.");
+    return;
+  }
+
+  /*
+    ÖNEMLİ:
+    Teklif tablosunun gerçek kolonları Supabase'de oluşturulduğunda
+    burada yalnızca gerçek kolon adları bırakılmalıdır.
+    Şimdilik önceki kurulumdaki isimler korunuyor.
+  */
+  const payload = {
     kullanici_id:user.id,
-    user_id:user.id,
     acik_artirma_id:vaultId,
-    auction_id:vaultId,
-    teklif:amount,
-    amount:amount,
-    miktar:amount
+    teklif:amount
   };
 
-  let result=await db.from("teklifler").insert(payload);
+  const result =
+    await db.from("teklifler").insert(payload);
+
   if(result.error){
-    /* Eğer tablo şeman farklıysa ilk hatayı kullanıcıya açıkça göster. */
-    toast("Teklif kaydedilemedi: "+result.error.message);
+    toast("Teklif kaydedilemedi: " + result.error.message);
     return;
   }
 
@@ -225,22 +326,44 @@ async function submitBid(){
   await loadVaults();
 }
 
-document.querySelectorAll(".nav button").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+document.querySelectorAll(".nav button").forEach(btn => {
+  btn.addEventListener("click",() => {
+    document.querySelectorAll(".nav button")
+      .forEach(x => x.classList.remove("active"));
+
     btn.classList.add("active");
-    ["home","vaults","leaderboard","how"].forEach(v=>$(v+"View").style.display="none");
-    $(btn.dataset.view+"View").style.display="block";
-    if(btn.dataset.view==="leaderboard")loadLeaders();
+
+    ["home","vaults","leaderboard","how"].forEach(v => {
+      $(v + "View").style.display = "none";
+    });
+
+    $(btn.dataset.view + "View").style.display = "block";
+
+    if(btn.dataset.view === "leaderboard")
+      loadLeaders();
   });
 });
-document.querySelectorAll(".filter").forEach(btn=>btn.addEventListener("click",()=>{
-  document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
-  activeCategory=btn.dataset.cat;applyFilter();
-}));
-$("closeModal").onclick=()=>$("modal").classList.remove("show");
-$("modal").onclick=e=>{if(e.target.id==="modal")$("modal").classList.remove("show")};
-$("submitBid").onclick=submitBid;
+
+document.querySelectorAll(".filter").forEach(btn => {
+  btn.addEventListener("click",() => {
+    document.querySelectorAll(".filter")
+      .forEach(x => x.classList.remove("active"));
+
+    btn.classList.add("active");
+    activeCategory = btn.dataset.cat;
+    applyFilter();
+  });
+});
+
+$("closeModal").onclick =
+  () => $("modal").classList.remove("show");
+
+$("modal").onclick = e => {
+  if(e.target.id === "modal")
+    $("modal").classList.remove("show");
+};
+
+$("submitBid").onclick = submitBid;
 
 loadVaults();
 loadCredits();
